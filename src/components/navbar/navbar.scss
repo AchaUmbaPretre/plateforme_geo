@@ -1,0 +1,147 @@
+@import '../../../style.scss';
+
+// 🎨 Palette
+$primary-blue: #1f1fe4;
+$dark-blue: #151541;
+$gold-accent: #ffd700;
+$text-dark: #222;
+$text-light: #fff;
+
+.navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  padding: 10px 0;
+  z-index: 111;
+  transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  &.bleu {
+    position: fixed;
+    background: $dark-blue;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 222;
+
+    @include tablette {
+      background: #fff;
+    }
+  }
+
+  .navbar-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+
+    @include tablette {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+.navbar-logo {
+  max-height: 50px;
+  width: auto; 
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05); // Effet léger au survol
+  }
+
+  @include tablette {
+    max-height: 40px;
+  }
+}
+
+    .navbar-ul {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      transition: all 0.3s ease;
+
+      @include tablette {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 30px;
+        background: #fff;
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+        gap: 18px;
+        display: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-link {
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        color: $dark-blue;
+        position: relative;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $gold-accent;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          bottom: -3px;
+          left: 0;
+          background: $gold-accent;
+          transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+          width: 100%;
+        }
+
+        @include tablette {
+          color: $primary-blue; // Texte visible sur fond blanc
+          width: 100%;
+          padding: 8px 0;
+        }
+      }
+    }
+
+    .navbar-ul.navbarOpen {
+      @include tablette {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .navbar-bar {
+      display: none;
+      font-size: 2rem;
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid $primary-blue;
+      background: #fff;
+      color: $primary-blue;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $primary-blue;
+        color: #fff;
+      }
+
+      @include tablette {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  }
+}
