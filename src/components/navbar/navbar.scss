@@ -47,7 +47,7 @@ $text-light: #fff;
   transition: transform 0.3s ease;
 
   &:hover {
-    transform: scale(1.05); // Effet léger au survol
+    transform: scale(1.05);
   }
 
   @include tablette {
