@@ -5,6 +5,7 @@ import Layout from './components/layout/Layout';
 import NotFound from './pages/notfound/Notfound';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
+import Donnees from './pages/donnees/Donnees';
 
 const Home = lazy(() => import('./pages/home/Home'));
 const Forage = lazy(() => import('./pages/forage/Forage'));
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: '/', element: <Home /> },
+      { path: '/donnees', element: <Donnees /> },
       { path: '/forage', element: <Forage /> },
       { path: '/geochimie', element: <Geochimie /> },
       { path: '/geologiques', element: <Geologiques /> },

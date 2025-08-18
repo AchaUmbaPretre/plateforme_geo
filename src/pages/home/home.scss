@@ -1,0 +1,111 @@
+.home{
+    font-family: 'NunitoExtraBold';
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    .home__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 60px 20px;
+
+  .home__left {
+    flex: 1;
+    .home__title { font-size: 3rem; font-weight: 800; margin-bottom: 20px; color: #272763;}
+    .home__desc { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; }
+    .home__btn {
+      padding: 0.75rem 1.8rem;
+      background: #007bff;
+      color: #fff;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 6px 12px rgba(0,123,255,0.3);
+      transition: all 0.3s ease;
+    }
+  }
+
+  .home__right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    .home__img { width: 100%; max-width: 500px; border-radius: 15px; }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column-reverse;
+    text-align: center;
+    .home__right { margin-bottom: 40px; }
+    .home__img { max-width: 80%; }
+  }
+}
+
+
+    .data {
+  margin-top: 60px;
+  padding: 0 20px;
+
+  .data_title_row {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .data_title {
+      font-size: 2.5rem;
+      font-family: 'NunitoExtraBold', sans-serif;
+      color: #272763;
+      position: relative;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: #007BFF;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .data__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+
+    .data__row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 25px 15px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+      }
+
+      .home_data_img {
+        height: 60px;
+        width: 60px;
+        object-fit: contain;
+      }
+
+      .home_desc_data {
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-align: center;
+        color: #272763;
+
+      }
+    }
+  }
+}
+
+}

@@ -17,7 +17,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar ${isScrolled ? "bleu" : ""}`}>
+    <nav className={`navbar`}>
       <div className="navbar-wrapper">
         <img src={logo} alt="Logo" className="navbar-logo" />
         <div className="navbar-right">
@@ -31,7 +31,7 @@ const Navbar = () => {
               <Link to="/" className="navbar-link">Accueil</Link>
             </li>
             <li className="navbar-li">
-              <Link to="/equipe" className="navbar-link">Données</Link>
+              <Link to="/donnees" className="navbar-link">Données</Link>
             </li>
             <li className="navbar-li">
               <Link to="/login" className="navbar-link">Se connecter</Link>

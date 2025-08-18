@@ -8,12 +8,16 @@ $text-dark: #222;
 $text-light: #fff;
 
 .navbar {
+  font-family: 'NunitoExtraBold';
   width: 100%;
   position: sticky;
   top: 0;
   padding: 10px 0;
   z-index: 111;
   transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  
   &.bleu {
     position: fixed;
     background: $dark-blue;
@@ -86,6 +90,8 @@ $text-light: #fff;
         color: $dark-blue;
         position: relative;
         transition: color 0.3s ease;
+        color: #272763;
+
 
         &:hover {
           color: $gold-accent;
