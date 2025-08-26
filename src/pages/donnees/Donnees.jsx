@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -7,13 +7,45 @@ import {
   LayersControl,
   ScaleControl,
 } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet.fullscreen"; // si tu installes leaflet.fullscreen
-import "leaflet.fullscreen/Control.FullScreen.css";
 import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet.fullscreen";
+import "leaflet.fullscreen/Control.FullScreen.css";
 
 import LayersPanel from "../../components/layersPanel/LayersPanel";
 import "./donnees.scss";
+import { getType } from "../../services/type.service";
+import { getDonnees } from "../../services/donnees.service";
+
+// --- Fix icônes par défaut Leaflet ---
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
+
+// --- Icônes par type de données ---
+const getIconByType = (type) => {
+  return new L.Icon({
+    iconUrl:
+      type === "Géologique"
+        ? "/icons/geology.png"
+        : type === "Hydrologique"
+        ? "/icons/water.png"
+        : type === "Forage"
+        ? "/icons/drill.png"
+        : type === "Pétrolier"
+        ? "/icons/oil.png"
+        : "/icons/default.png",
+    iconSize: [30, 40],
+    iconAnchor: [15, 40],
+    popupAnchor: [0, -40],
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+    shadowSize: [41, 41],
+    shadowAnchor: [14, 41],
+  });
+};
 
 const { BaseLayer } = LayersControl;
 
@@ -22,11 +54,29 @@ const Donnees = () => {
   const [region, setRegion] = useState("");
   const [date, setDate] = useState("");
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [type, setType] = useState([]);
+  const [data, setData] = useState([]);
 
-  // Simule un utilisateur abonné
   const userHasSubscription = false;
 
-  // Données simulées
+  const fetchData = async() => {
+    try {
+      const [ typeData, donneesData ] = await Promise.all([
+        getType(),
+        getDonnees()
+      ])
+
+      setType(typeData.data)
+      setData(donneesData.data)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+
+  // --- Données simulées ---
   const dataCards = [
     {
       id: 1,
@@ -63,15 +113,14 @@ const Donnees = () => {
     },
   ];
 
-  // Filtres
-  const filteredData = dataCards.filter((card) => {
-    return (
+  // --- Filtrage dynamique ---
+  const filteredData = dataCards.filter(
+    (card) =>
       (search === "" || card.title.toLowerCase().includes(search.toLowerCase())) &&
       (region === "" || card.region.toLowerCase().includes(region.toLowerCase())) &&
       (date === "" || card.date === date) &&
       (selectedTypes.length === 0 || selectedTypes.includes(card.type))
-    );
-  });
+  );
 
   const toggleType = (type) => {
     if (selectedTypes.includes(type)) {
@@ -84,10 +133,10 @@ const Donnees = () => {
   return (
     <div className="donnees">
       <div className="donnees_wrapper">
-        {/* FILTRES */}
+        {/* --- FILTRES --- */}
         <div className="donnees_left">
           <h3 className="donnees_title">Filtres avancés</h3>
-          {/* Barre de recherche */}
+
           <div className="donnees_filtre">
             <label className="donnees_label">Recherche</label>
             <input
@@ -98,7 +147,7 @@ const Donnees = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          {/* Types */}
+
           <div className="donnees_type_card">
             <span className="donnees_span">Type des données</span>
             {["Géographique", "Géologique", "Hydrologique", "Forage", "Pétrolier", "Autres"].map(
@@ -117,7 +166,7 @@ const Donnees = () => {
               )
             )}
           </div>
-          {/* Région */}
+
           <div className="donnees_filtre">
             <label className="donnees_label">Région</label>
             <input
@@ -128,7 +177,7 @@ const Donnees = () => {
               onChange={(e) => setRegion(e.target.value)}
             />
           </div>
-          {/* Date */}
+
           <div className="donnees_filtre">
             <label className="donnees_label">Date</label>
             <input
@@ -138,10 +187,11 @@ const Donnees = () => {
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
+
           <button className="donnees_btn">Appliquer les filtres</button>
         </div>
 
-        {/* RESULTATS + MAP */}
+        {/* --- RESULTATS + MAP --- */}
         <div className="donnees_right">
           <div className="donnees_top">
             <span className="donnees_results">
@@ -150,7 +200,7 @@ const Donnees = () => {
           </div>
 
           <div className="donnees__bottom">
-            {/* Liste des cartes */}
+            {/* --- Liste des cartes --- */}
             <div className="donnees__bottom_left">
               {filteredData.map((card) => (
                 <div className="donnees__left_card" key={card.id}>
@@ -179,17 +229,16 @@ const Donnees = () => {
               ))}
             </div>
 
-            {/* Carte Leaflet PRO */}
+            {/* --- Carte Leaflet pro --- */}
             <div className="donnees__bottom_right">
               <MapContainer
-                center={[-2.88, 23.65]} // RDC centre
+                center={[-2.88, 23.65]}
                 zoom={5}
                 style={{ height: "500px", width: "100%", borderRadius: "12px" }}
                 fullscreenControl={true}
               >
-                {/* Contrôle Layers (basemaps) */}
                 <LayersControl position="topright">
-                  <BaseLayer checked name="Carte OpenStreetMap">
+                  <BaseLayer checked name="OpenStreetMap">
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   </BaseLayer>
                   <BaseLayer name="Satellite ESRI">
@@ -203,9 +252,8 @@ const Donnees = () => {
                   </BaseLayer>
                 </LayersControl>
 
-                {/* Markers dynamiques */}
                 {filteredData.map((card) => (
-                  <Marker key={card.id} position={card.coords}>
+                  <Marker key={card.id} position={card.coords} icon={getIconByType(card.type)}>
                     <Popup>
                       <b>{card.title}</b>
                       <br />
@@ -216,7 +264,6 @@ const Donnees = () => {
                   </Marker>
                 ))}
 
-                {/* Echelle en bas à gauche */}
                 <ScaleControl position="bottomleft" />
               </MapContainer>
 

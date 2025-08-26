@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../config';
+import config from './../config'
 
 const DOMAIN = config.REACT_APP_SERVER_DOMAIN;
 
