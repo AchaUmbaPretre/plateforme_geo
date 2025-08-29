@@ -45,10 +45,11 @@ $text-light: #fff;
     }
 
 .navbar-logo {
-  max-height: 50px;
+  max-height: 60px;
   width: auto; 
   cursor: pointer;
   transition: transform 0.3s ease;
+  object-fit: cover;
 
   &:hover {
     transform: scale(1.05);

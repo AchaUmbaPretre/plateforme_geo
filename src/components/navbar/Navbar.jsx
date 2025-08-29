@@ -2,7 +2,7 @@ import "./navbar.scss";
 import { Link } from "react-router-dom";
 import { Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import logo from './../../assets/logo.png';
+import logo from './../../assets/logo.jpeg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

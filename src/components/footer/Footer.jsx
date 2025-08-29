@@ -1,7 +1,7 @@
 import { Call, FacebookOutlined, Instagram, LinkedIn, LocationOn, Mail, Twitter } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import './footer.scss';
-import logo from './../../assets/logo.png';
+import logo from './../../assets/logo.jpeg';
 
 const Footer = () => {
   const liens = [
