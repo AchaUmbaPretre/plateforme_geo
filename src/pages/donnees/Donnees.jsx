@@ -11,11 +11,14 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.fullscreen";
 import "leaflet.fullscreen/Control.FullScreen.css";
-
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import LayersPanel from "../../components/layersPanel/LayersPanel";
 import "./donnees.scss";
-import { getType } from "../../services/type.service";
+import { getProvince, getType } from "../../services/type.service";
 import { getDonnees } from "../../services/donnees.service";
+import config from "../../config";
 
 // --- Fix icônes par défaut Leaflet ---
 delete L.Icon.Default.prototype._getIconUrl;
@@ -37,6 +40,8 @@ const getIconByType = (type) => {
         ? "/icons/drill.png"
         : type === "Pétrolier"
         ? "/icons/oil.png"
+        : "/icons/Géographique"
+        ? "/icons/map.png"
         : "/icons/default.png",
     iconSize: [30, 40],
     iconAnchor: [15, 40],
@@ -56,77 +61,49 @@ const Donnees = () => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [type, setType] = useState([]);
   const [data, setData] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const DOMAIN = config.REACT_APP_SERVER_DOMAIN;
 
-  const userHasSubscription = false;
 
-  const fetchData = async() => {
+  const userHasSubscription = false; // à gérer dynamiquement selon utilisateur
+
+  // --- Récupération des données ---
+  const fetchData = async () => {
     try {
-      const [ typeData, donneesData ] = await Promise.all([
+      const [typeData, donneesData, regionData] = await Promise.all([
         getType(),
-        getDonnees()
-      ])
+        getDonnees(),
+        getProvince(),
+      ]);
 
-      setType(typeData.data)
-      setData(donneesData.data)
-
+      setType(typeData.data);
+      setData(donneesData.data);
+      setRegions(regionData.data);
     } catch (error) {
-      console.log(error)
+      console.error(error);
     }
-  }
+  };
 
-
-
-  // --- Données simulées ---
-  const dataCards = [
-    {
-      id: 1,
-      title: "Carte géologique Katanga",
-      type: "Géologique",
-      region: "Katanga",
-      date: "2025-08-20",
-      description: "Carte détaillée des formations géologiques du Katanga.",
-      img: "/previews/geologie.png",
-      coords: [-11.68, 27.48],
-      requiresSubscription: true,
-    },
-    {
-      id: 2,
-      title: "Carte hydrologique Kivu",
-      type: "Hydrologique",
-      region: "Kivu",
-      date: "2025-07-15",
-      description: "Cours d'eau et lacs de la région du Kivu.",
-      img: "/previews/cours_eau.png",
-      coords: [-1.68, 29.22],
-      requiresSubscription: false,
-    },
-    {
-      id: 3,
-      title: "Forages Haut-Uele",
-      type: "Forage",
-      region: "Haut-Uele",
-      date: "2025-05-10",
-      description: "Données des forages hydrogéologiques.",
-      img: "/previews/forage.png",
-      coords: [3.5, 28.4],
-      requiresSubscription: true,
-    },
-  ];
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // --- Filtrage dynamique ---
-  const filteredData = dataCards.filter(
-    (card) =>
-      (search === "" || card.title.toLowerCase().includes(search.toLowerCase())) &&
-      (region === "" || card.region.toLowerCase().includes(region.toLowerCase())) &&
-      (date === "" || card.date === date) &&
-      (selectedTypes.length === 0 || selectedTypes.includes(card.type))
-  );
+  const filteredData = data.filter((d) => {
+    const dType = type.find((t) => t.id_type === d.id_type)?.nom_type || "Autres";
+    return (
+      (search === "" || d.titre.toLowerCase().includes(search.toLowerCase())) &&
+      (region === "" || d.region.toLowerCase().includes(region.toLowerCase())) &&
+      (date === "" || d.date_collecte.split("T")[0] === date) &&
+      (selectedTypes.length === 0 || selectedTypes.includes(dType))
+    );
+  });
 
-  const toggleType = (type) => {
-    if (selectedTypes.includes(type)) {
-      setSelectedTypes(selectedTypes.filter((t) => t !== type));
+  const toggleType = (typeName) => {
+    if (selectedTypes.includes(typeName)) {
+      setSelectedTypes(selectedTypes.filter((t) => t !== typeName));
     } else {
-      setSelectedTypes([...selectedTypes, type]);
+      setSelectedTypes([...selectedTypes, typeName]);
     }
   };
 
@@ -150,32 +127,35 @@ const Donnees = () => {
 
           <div className="donnees_type_card">
             <span className="donnees_span">Type des données</span>
-            {["Géographique", "Géologique", "Hydrologique", "Forage", "Pétrolier", "Autres"].map(
-              (type, index) => (
-                <div className="donnees_check_row" key={index}>
-                  <input
-                    type="checkbox"
-                    id={`type-${index}`}
-                    checked={selectedTypes.includes(type)}
-                    onChange={() => toggleType(type)}
-                  />
-                  <label htmlFor={`type-${index}`} className="donnees_check_desc">
-                    {type}
-                  </label>
-                </div>
-              )
-            )}
+            {type.map((t) => (
+              <div className="donnees_check_row" key={t.id_type}>
+                <input
+                  type="checkbox"
+                  id={`type-${t.id_type}`}
+                  checked={selectedTypes.includes(t.nom_type)}
+                  onChange={() => toggleType(t.nom_type)}
+                />
+                <label htmlFor={`type-${t.id_type}`} className="donnees_check_desc">
+                  {t.nom_type}
+                </label>
+              </div>
+            ))}
           </div>
 
           <div className="donnees_filtre">
             <label className="donnees_label">Région</label>
-            <input
-              type="text"
-              placeholder="Ex: Kivu, Katanga..."
+            <select
               className="donnees_input"
               value={region}
               onChange={(e) => setRegion(e.target.value)}
-            />
+            >
+              <option value="">Toutes les régions</option>
+              {regions.map((r) => (
+                <option key={r.id} value={r.name_fr}>
+                  {r.name_fr}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="donnees_filtre">
@@ -187,8 +167,6 @@ const Donnees = () => {
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
-
-          <button className="donnees_btn">Appliquer les filtres</button>
         </div>
 
         {/* --- RESULTATS + MAP --- */}
@@ -202,34 +180,41 @@ const Donnees = () => {
           <div className="donnees__bottom">
             {/* --- Liste des cartes --- */}
             <div className="donnees__bottom_left">
-              {filteredData.map((card) => (
-                <div className="donnees__left_card" key={card.id}>
-                  <span className="donnees__title_card">
-                    {card.title} ({card.type}, {card.region}, {card.date})
-                  </span>
-                  <div className="donnees_row">
-                    <div className="donnees_card_vignette">
-                      <img src={card.img} alt="aperçu données" />
-                    </div>
-                    <div className="donnees_card_info">
-                      <p className="donnees_desc">{card.description}</p>
-                      <div className="donnees_card_btn">
-                        <button className="detail_btn primary">Voir le détail</button>
-                        <button
-                          className="detail_btn secondary"
-                          disabled={card.requiresSubscription && !userHasSubscription}
-                          title={card.requiresSubscription ? "Abonnement requis" : ""}
-                        >
-                          Télécharger
-                        </button>
+              {filteredData.map((d) => {
+                const dType = type.find((t) => t.id_type === d.id_type)?.nom_type || "Autres";
+                const requiresSubscription = d.acces === "abonne";
+                return (
+                  <div className="donnees__left_card" key={d.id_donnee}>
+                    <span className="donnees__title_card">
+                      {d.titre} ({dType}, {d.region}, {d.date_collecte.split("T")[0]})
+                    </span>
+                    <div className="donnees_row">
+                      <div className="donnees_card_vignette">
+                        <img
+                          src={`${DOMAIN}/${d.vignette_url}`}
+                          alt="aperçu données"
+                        />
+                      </div>
+                      <div className="donnees_card_info">
+                        <p className="donnees_desc">{d.description}</p>
+                        <div className="donnees_card_btn">
+                          <button className="detail_btn primary">Voir le détail</button>
+                          <button
+                            className="detail_btn secondary"
+                            disabled={requiresSubscription && !userHasSubscription}
+                            title={requiresSubscription ? "Abonnement requis" : ""}
+                          >
+                            Télécharger
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            {/* --- Carte Leaflet pro --- */}
+            {/* --- Carte Leaflet pro avec cluster --- */}
             <div className="donnees__bottom_right">
               <MapContainer
                 center={[-2.88, 23.65]}
@@ -252,17 +237,30 @@ const Donnees = () => {
                   </BaseLayer>
                 </LayersControl>
 
-                {filteredData.map((card) => (
-                  <Marker key={card.id} position={card.coords} icon={getIconByType(card.type)}>
-                    <Popup>
-                      <b>{card.title}</b>
-                      <br />
-                      <i>{card.region} - {card.date}</i>
-                      <br />
-                      <img src={card.img} alt="" style={{ width: "120px", marginTop: "8px" }} />
-                    </Popup>
-                  </Marker>
-                ))}
+                <MarkerClusterGroup>
+                  {filteredData.map((d) => {
+                    const dType = type.find((t) => t.id_type === d.id_type)?.nom_type || "Autres";
+                    return (
+                      <Marker
+                        key={d.id_donnee}
+                        position={[d.latitude, d.longitude]}
+                        icon={getIconByType(dType)}
+                      >
+                        <Popup>
+                          <b>{d.titre}</b>
+                          <br />
+                          <i>{d.region} - {d.date_collecte.split("T")[0]}</i>
+                          <br />
+                          <img
+                            src={d.vignette_url || "/previews/default.png"}
+                            alt=""
+                            style={{ width: "120px", marginTop: "8px" }}
+                          />
+                        </Popup>
+                      </Marker>
+                    );
+                  })}
+                </MarkerClusterGroup>
 
                 <ScaleControl position="bottomleft" />
               </MapContainer>
