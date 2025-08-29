@@ -31,7 +31,13 @@ const Navbar = () => {
               <Link to="/" className="navbar-link">Accueil</Link>
             </li>
             <li className="navbar-li">
+                <a className="navbar-link" href="#nosservices">Nos services</a>
+            </li>
+            <li className="navbar-li">
               <Link to="/donnees" className="navbar-link">Données</Link>
+            </li>
+            <li className="navbar-li">
+              <Link to="/donnees" className="navbar-link">contactez-nous</Link>
             </li>
             <li className="navbar-li">
               <Link to="/login" className="navbar-link">Se connecter</Link>
