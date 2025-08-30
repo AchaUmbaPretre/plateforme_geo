@@ -1,0 +1,247 @@
+@import './../../style.scss';
+
+.contact {
+  background-position: center;
+  width: 100%;
+  padding: 50px 0;
+    @include tablette {
+      padding: 50px 0 20px 0;
+    }
+
+  .contact-wrapper {
+    max-width: 1025px;
+    margin: 0 auto;
+
+    @include laptop {
+      width: 900px;
+    }
+    @include tablette {
+      width: 850px;
+    }
+    @include mobileXR {
+      width: 360px;
+      position: relative;
+      overflow: hidden;
+    }
+    @include mobile12pro {
+      width: 350px;
+    }
+    @include mobileSE {
+      width: 345px;
+    }
+
+    .client-cont-title {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+
+      .client-sous-title {
+        width: 60%;
+        margin: 0 auto;
+        font-size: 2.2rem;
+        font-family: 'Anton', sans-serif;
+        background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 900;
+        text-transform: uppercase;
+
+        @include mobile {
+          width: 100%;
+          font-size: 1rem;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          width: 80px;
+          height: 5px;
+          background: linear-gradient(135deg, #007bff, #0056d6);
+          margin: 15px auto 0;
+          border-radius: 3px;
+          animation: gradientMove 3s infinite alternate ease-in-out;
+          background-size: 200% 200%;
+        }
+      }
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: left center;
+        transform: scaleX(0.8);
+      }
+      50% {
+        background-position: center center;
+        transform: scaleX(1.1);
+      }
+      100% {
+        background-position: right center;
+        transform: scaleX(0.8);
+      }
+    }
+
+    .contact-container {
+      width: 100%;
+      padding-top: 50px;
+      @include mobile {
+        padding-top: 20px;
+      }
+
+      .contact-rows {
+        display: flex;
+        gap: 20px;
+
+        @include mobile {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .contact-left,
+        .contact-right {
+          flex: 1;
+          padding: 20px;
+          background: rgba(255, 255, 255, 0.85);
+          border-radius: 10px;
+          border: 1px solid rgba(128, 128, 128, 0.2);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+          backdrop-filter: blur(8px);
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+          }
+        }
+
+        .contact-left {
+          .contact-left-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .contact-row {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              .contact-row-icon {
+                height: 45px;
+                width: 45px;
+                border-radius: 50%;
+                background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: 0.3s ease;
+
+                &:hover {
+                  background: linear-gradient(135deg, #007bff, #00c6ff);
+                  transform: scale(1.1);
+                }
+
+                .contact-icon {
+                  color: #fff;
+                }
+              }
+
+              .contact-row-text {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                .contact-text-h2 {
+                  font-family: 'Anton', sans-serif;
+                  color: rgba(21, 21, 65, 0.9);
+                  font-size: 1rem;
+                  font-weight: 300;
+                  letter-spacing: 1px;
+                }
+
+                .contact-txt {
+                  text-decoration: none;
+                  font-size: 0.9rem;
+                  color: gray;
+
+                  &:hover {
+                    color: #007bff;
+                  }
+                }
+              }
+            }
+          }
+
+          .contact-left-bottom {
+            margin-top: 20px;
+            iframe {
+              border-radius: 8px;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+
+        .contact-right {
+          form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .form-control {
+              width: 100%;
+              display: flex;
+              gap: 10px;
+
+              .input-controle {
+                border: 1px solid rgba(128, 128, 128, 0.3);
+                width: 100%;
+                resize: none;
+                border-radius: 5px;
+                padding: 12px 15px;
+                outline: none;
+                transition: 0.3s ease;
+
+                &:focus {
+                  border: 2px solid #007bff;
+                  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+                }
+              }
+            }
+
+            textarea {
+              resize: none;
+              border-radius: 5px;
+              padding: 12px 15px;
+              border: 1px solid rgba(128, 128, 128, 0.3);
+              outline: none;
+              transition: 0.3s ease;
+
+              &:focus {
+                border: 2px solid #007bff;
+                box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+              }
+            }
+
+            .contact-submit {
+              background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
+              background-size: 200% auto;
+              padding: 10px 20px;
+              border-radius: 6px;
+              color: #fff;
+              font-size: 1rem;
+              font-weight: 600;
+              height: 45px;
+              transition: all 0.4s ease;
+              cursor: pointer;
+              border: none;
+
+              &:hover {
+                background-position: right center;
+                transform: scale(1.05);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ import geochimie from './../../assets/geochimie.png';
 import geophysique from './../../assets/geophysique.png';
 import petrochimie from './../../assets/petrochimie.png';
 import About from '../about/About';
+import Contact from '../contact/Contact';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -143,6 +144,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <Contact/>
     </div>
   );
 };

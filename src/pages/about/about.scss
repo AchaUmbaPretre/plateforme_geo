@@ -1,32 +1,45 @@
+@import '../../style.scss';
+
 .about {
   width: 100%;
   padding: 40px 0;
   overflow: hidden;
+
+
+  @include tablette {
+    width: 100%;
+    overflow: hidden;
+  }
 
   .about_title_row {
     text-align: center;
     margin-bottom: 50px;
 
     .about-title {
-            position: relative;
-        display: inline-block;
-        font-size: 2rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
 
-        .title-underline {
-          display: block;
-          height: 5px;
-          width: 80px;
-          margin: 15px auto 0;
-          border-radius: 3px;
-          background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
-          background-size: 400% 400%;
-          animation: gradientMove 3s ease infinite, expandPulse 2s ease-in-out infinite;
-        }
+      @include tablette { font-size: 1rem; }
+      @include mobileXR { font-size: 1.6rem; }
+
+      .title-underline {
+        display: block;
+        height: 5px;
+        width: 80px;
+        margin: 15px auto 0;
+        border-radius: 3px;
+        background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
+        background-size: 400% 400%;
+        animation: gradientMove 3s ease infinite, expandPulse 2s ease-in-out infinite;
+
+        @include mobileXR { width: 60px; }
+      }
     }
   }
 
@@ -41,19 +54,8 @@
       flex: 1;
       min-width: 350px;
 
-      .about_desc {
-        font-size: 1rem;
-        line-height: 1.8;
-        margin-bottom: 15px;
-        color: #555;
-      }
-
-      .about_sous {
-        font-weight: 600;
-        display: block;
-        margin-bottom: 20px;
-        color: #333;
-      }
+      .about_desc { font-size: 1rem; line-height: 1.8; margin-bottom: 15px; color: #555; }
+      .about_sous { font-weight: 600; margin-bottom: 20px; color: #333; display: block; }
 
       .about_ul {
         list-style: none;
@@ -87,27 +89,58 @@
       .about-img {
         width: 100%;
         border-radius: 20px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         cursor: pointer;
+        transition: transform 0.3s ease;
       }
+    }
+
+    // TABLETTE
+    @include laptop {
+      flex-direction: column-reverse;
+      align-items: center;
+      text-align: center;
+      gap: 30px;
+
+      .about_left {
+        min-width: 100%;
+        .about_desc { font-size: 0.95rem; }
+        .about_sous { font-size: 0.9rem; }
+        .about_ul .about_li { font-size: 0.9rem; gap: 10px; }
+      }
+
+      .about_right .about-img { max-width: 100%; }
+    }
+
+    // MOBILE
+    @include mobileXR {
+      gap: 20px;
+
+      .about_left {
+        .about_desc { font-size: 0.8rem; text-align: justify; }
+        .about_sous { font-size: 0.8rem; }
+        .about_ul .about_li { font-size: 0.8rem; gap: 8px; text-align: justify; }
+      }
+
+      .about_right .about-img { width: 100%; }
+    }
+
+    // PETITS MOBILE SE
+    @include mobileSE {
+      gap: 15px;
+
+      .about_left {
+        .about_desc { font-size: 0.85rem; }
+        .about_sous { font-size: 0.85rem; }
+        .about_ul .about_li { font-size: 0.85rem; gap: 5px; }
+      }
+
+      .about-title { font-size: 1.4rem; }
+      .title-underline { width: 50px; }
     }
   }
 }
 
 /* ANIMATIONS */
-@keyframes shimmer {
-  to {
-    background-position: 200% center;
-  }
-}
-
-@keyframes expandPulse {
-  0%, 100% { transform: scaleX(1); }
-  50% { transform: scaleX(1.3); }
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+@keyframes shimmer { to { background-position: 200% center; } }
+@keyframes expandPulse { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(1.3); } }
+@keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
