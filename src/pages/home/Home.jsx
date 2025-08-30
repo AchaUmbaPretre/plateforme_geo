@@ -10,6 +10,7 @@ import petrolier from './../../assets/petrolier.png';
 import geochimie from './../../assets/geochimie.png';
 import geophysique from './../../assets/geophysique.png';
 import petrochimie from './../../assets/petrochimie.png';
+import About from '../about/About';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -95,17 +96,27 @@ const Home = () => {
         </motion.div>
       </div>
 
+      <About/>
+
       {/* SECTION DONNÉES */}
       <div className="data" id="nosservices">
-        <motion.div
-          className="data_title_row"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="data_title">Données disponibles</h2>
-        </motion.div>
+
+        <div className="data_title_row">
+          <motion.h2
+            className="data-title"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            Nos services
+            <motion.span
+              className="title-underline"
+              initial={{ width: 0 }}
+              animate={{ width: '80px' }}
+              transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
+            />
+          </motion.h2>
+        </div>
 
         <div className="data__wrapper">
           {dataItems.map((data, index) => (
