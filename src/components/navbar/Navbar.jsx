@@ -41,7 +41,7 @@ const Navbar = () => {
             <li><Link to="/" className="navbar-link" onClick={closeMenu}>Accueil</Link></li>
             <li><a href="#nosservices" className="navbar-link" onClick={closeMenu}>Nos services</a></li>
             <li><Link to="/donnees" className="navbar-link" onClick={closeMenu}>Données</Link></li>
-            <li><Link to="/contact" className="navbar-link" onClick={closeMenu}>Contactez-nous</Link></li>
+            <li><a href="#contact" className="navbar-link" onClick={closeMenu}>Contactez-nous</a></li>
             <li><Link to="/login" className="navbar-link" onClick={closeMenu}>Se connecter</Link></li>
           </ul>
         </div>
