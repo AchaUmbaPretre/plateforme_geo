@@ -1,8 +1,8 @@
 @import './../../style.scss';
 
   .data {
-    margin-top: 70px;
-    padding: 0 20px;
+    min-height: 100vh;
+    position: relative;
 
     .data_title_row {
       text-align: center;

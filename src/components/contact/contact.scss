@@ -1,9 +1,11 @@
 @import './../../style.scss';
 
 .contact {
+  position: relative;
   background-position: center;
   width: 100%;
-  padding: 60px 0;
+  min-height: 100vh;
+
     @include tablette {
       padding: 50px 0 20px 0;
     }

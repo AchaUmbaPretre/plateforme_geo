@@ -6,137 +6,144 @@
   margin: 0 auto;
   padding: 0 20px;
 
-  .home__wrapper {
+  .home_container{
+    width: 100%;
+    height: 90vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    padding: 100px 40px;
-    @include tablette {
-      padding: 80px 20px;
+    justify-content: center;
+      .home__wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+      @include tablette {
+        padding: 80px 20px;
 
-    }
-
-    .home__left {
-      flex: 1;
-
-      .home__title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-        background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1.2
       }
 
-      .home__desc {
-        font-size: 1.15rem;
-        line-height: 1.7;
-        margin-bottom: 35px;
-        color: #444;
-      }
+      .home__left {
+        flex: 1;
 
-      .home__btn {
-        padding: 0.9rem 2.2rem;
-        background: linear-gradient(135deg, #007bff, #0056d6);
-        background-size: 200% auto;
-        color: #fff;
-        border-radius: 12px;
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 8px 18px rgba(0, 123, 255, 0.35);
-        transition: all 0.35s ease;
-
-        &:hover {
-          background-position: right center;
-          animation: shimmer 2s linear infinite;
-          box-shadow: 0 12px 25px rgba(0, 91, 196, 0.45);
-          transform: translateY(-3px) scale(1.03);
+        .home__title {
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin-bottom: 20px;
+          background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          line-height: 1.2
         }
 
-        &:active {
-          transform: scale(0.96);
+        .home__desc {
+          font-size: 1.15rem;
+          line-height: 1.7;
+          margin-bottom: 35px;
+          color: #444;
         }
 
-        &:focus-visible {
-          outline: 3px solid #007bff;
-          outline-offset: 4px;
-        }
-      }
-    }
+        .home__btn {
+          padding: 0.9rem 2.2rem;
+          background: linear-gradient(135deg, #007bff, #0056d6);
+          background-size: 200% auto;
+          color: #fff;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 1rem;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 8px 18px rgba(0, 123, 255, 0.35);
+          transition: all 0.35s ease;
 
-    .home__right {
-      flex: 1;
-      display: flex;
-      justify-content: center;
+          &:hover {
+            background-position: right center;
+            animation: shimmer 2s linear infinite;
+            box-shadow: 0 12px 25px rgba(0, 91, 196, 0.45);
+            transform: translateY(-3px) scale(1.03);
+          }
 
-      .home__img {
-        width: 100%;
-        max-width: 500px;
-        border-radius: 18px;
-        transition: transform 0.4s ease;
+          &:active {
+            transform: scale(0.96);
+          }
 
-        &:hover {
-          transform: scale(1.02) rotate(1deg);
+          &:focus-visible {
+            outline: 3px solid #007bff;
+            outline-offset: 4px;
+          }
         }
       }
-    }
-
-    // Tablette
-    @include tablette {
-      flex-direction: column-reverse;
-      text-align: center;
-      gap: 10px;
 
       .home__right {
-        margin-bottom: 10px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
         .home__img {
-          max-width: 100%;
+          width: 100%;
+          max-width: 500px;
+          border-radius: 18px;
+          transition: transform 0.4s ease;
+
+          &:hover {
+            transform: scale(1.02) rotate(1deg);
+          }
         }
       }
 
-      .home__left {
-        .home__title { font-size: 2.2rem; }
-        .home__desc { font-size: 1.05rem; }
-        .home__btn {
-          padding: 0.8rem 2rem;
-          font-size: 0.95rem;
+      // Tablette
+      @include tablette {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 10px;
+
+        .home__right {
+          margin-bottom: 10px;
+          .home__img {
+            max-width: 100%;
+          }
         }
-      }
-    }
 
-    // Mobile ≤480px
-    @include mobile {
-      .home__left {
-        .home__title { font-size: 1.8rem; }
-        .home__desc { font-size: 1rem; }
-        .home__btn {
-          padding: 0.7rem 1.8rem;
-          font-size: 0.9rem;
-        }
-      }
-
-      .home__right .home__img { max-width: 90%; }
-    }
-
-    // Très petits mobiles ≤375px
-    @include mobileSE {
-      padding: 50px 10px;
-      gap: 25px;
-
-      .home__left {
-        .home__title { font-size: 1.6rem; }
-        .home__desc { font-size: 0.95rem; }
-        .home__btn {
-          padding: 0.6rem 1.6rem;
-          font-size: 0.85rem;
+        .home__left {
+          .home__title { font-size: 2.2rem; }
+          .home__desc { font-size: 1.05rem; }
+          .home__btn {
+            padding: 0.8rem 2rem;
+            font-size: 0.95rem;
+          }
         }
       }
 
-      .home__right .home__img { max-width: 100%; }
+      // Mobile ≤480px
+      @include mobile {
+        .home__left {
+          .home__title { font-size: 1.8rem; }
+          .home__desc { font-size: 1rem; }
+          .home__btn {
+            padding: 0.7rem 1.8rem;
+            font-size: 0.9rem;
+          }
+        }
+
+        .home__right .home__img { max-width: 90%; }
+      }
+
+      // Très petits mobiles ≤375px
+      @include mobileSE {
+        padding: 50px 10px;
+        gap: 25px;
+
+        .home__left {
+          .home__title { font-size: 1.6rem; }
+          .home__desc { font-size: 0.95rem; }
+          .home__btn {
+            padding: 0.6rem 1.6rem;
+            font-size: 0.85rem;
+          }
+        }
+
+        .home__right .home__img { max-width: 100%; }
+      }
     }
   }
 
