@@ -1,83 +1,48 @@
 import "./navbar.scss";
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Menu, Close } from "@mui/icons-material";
+import { useState, useEffect } from "react";
 import logo from './../../assets/logo.jpeg';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-  const wrapperRef = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // Close menu when clicking outside
+  // Ajouter ombre et effet sticky au scroll
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-        setMenuOpen(false);
-      }
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on route change
-  useEffect(() => {
-    closeMenu();
-  }, [location]);
-
-  const links = [
-    { to: "/", label: "Accueil" },
-    { href: "#nosservices", label: "Nos services" },
-    { to: "/donnees", label: "Données" },
-    { to: "/contact", label: "Contactez-nous" },
-    { to: "/login", label: "Se connecter" },
-  ];
-
   return (
-    <nav className="navbar" role="navigation">
-      <div className="navbar-wrapper" ref={wrapperRef}>
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="navbar-wrapper">
         <Link to="/">
           <img src={logo} alt="Logo" className="navbar-logo" />
         </Link>
 
         <div className="navbar-right">
-          {/* Hamburger */}
-          <button
-            className={`navbar-bar ${menuOpen ? "open" : ""}`}
-            onClick={toggleMenu}
-            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          <button 
+            className="navbar-bar" 
+            onClick={toggleMenu} 
+            aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            {menuOpen ? <Close /> : <Menu />}
           </button>
 
-          {/* Menu */}
           <ul className={`navbar-ul ${menuOpen ? "navbarOpen" : ""}`}>
-            {links.map((link, idx) => (
-              <li key={idx}>
-                {link.to ? (
-                  <Link
-                    to={link.to}
-                    className={`navbar-link ${location.pathname === link.to ? "active" : ""}`}
-                    onClick={closeMenu}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    href={link.href}
-                    className="navbar-link"
-                    onClick={closeMenu}
-                  >
-                    {link.label}
-                  </a>
-                )}
-              </li>
-            ))}
+            <li><Link to="/" className="navbar-link" onClick={closeMenu}>Accueil</Link></li>
+            <li><a href="#nosservices" className="navbar-link" onClick={closeMenu}>Nos services</a></li>
+            <li><Link to="/donnees" className="navbar-link" onClick={closeMenu}>Données</Link></li>
+            <li><Link to="/contact" className="navbar-link" onClick={closeMenu}>Contactez-nous</Link></li>
+            <li><Link to="/login" className="navbar-link" onClick={closeMenu}>Se connecter</Link></li>
           </ul>
         </div>
       </div>

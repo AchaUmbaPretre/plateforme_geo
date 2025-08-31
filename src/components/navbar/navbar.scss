@@ -4,19 +4,27 @@ $primary-blue: #1f1fe4;
 $gold-accent: #ffd700;
 $dark-blue: #151541;
 
-// Navbar
+// Breakpoint tablette/mobile
+@mixin tablette {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
 .navbar {
   font-family: 'NunitoExtraBold', sans-serif;
-  width: 100%;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 999;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.151);
   transition: all 0.3s ease;
-  @include tablette{
-    width: 100%;
-    overflow: hidden;
+
+  &.scrolled {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
   }
 
   .navbar-wrapper {
@@ -28,6 +36,10 @@ $dark-blue: #151541;
     justify-content: space-between;
     align-items: center;
 
+    @include tablette {
+      padding: 0 25px;
+    }
+
     .navbar-logo {
       max-height: 60px;
       cursor: pointer;
@@ -35,10 +47,17 @@ $dark-blue: #151541;
       &:hover { transform: scale(1.05); }
     }
 
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .navbar-ul {
       display: flex;
       gap: 28px;
       list-style: none;
+      transition: all 0.3s ease;
 
       .navbar-link {
         position: relative;
@@ -46,9 +65,14 @@ $dark-blue: #151541;
         font-weight: 600;
         text-transform: uppercase;
         color: $dark-blue;
-        transition: color 0.3s ease;
+        transition: all 0.3s ease;
+        font-size: .8rem;
 
-        &:hover { color: $gold-accent; }
+        &:hover {
+          color: $gold-accent;
+          transform: translateY(-2px);
+        }
+
         &::after {
           content: "";
           position: absolute;
@@ -59,47 +83,31 @@ $dark-blue: #151541;
           background: $gold-accent;
           transition: width 0.3s ease;
         }
-        &:hover::after, &.active::after { width: 100%; }
+
+        &:hover::after,
+        &.active::after {
+          width: 100%;
+        }
       }
     }
 
-    // Hamburger
     .navbar-bar {
       display: none;
-      position: relative;
-      width: 30px;
-      height: 24px;
       background: none;
       border: none;
       cursor: pointer;
       padding: 0;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
+      z-index: 1001;
 
-      span {
-        display: block;
-        height: 3px;
-        width: 100%;
-        background: $primary-blue;
-        border-radius: 2px;
-        transition: all 0.4s ease;
-      }
-
-      &.open span:nth-child(1) {
-        transform: translateY(10px) rotate(45deg);
-      }
-      &.open span:nth-child(2) {
-        opacity: 0;
-      }
-      &.open span:nth-child(3) {
-        transform: translateY(-10px) rotate(-45deg);
+      svg {
+        font-size: 28px;
+        color: $primary-blue;
+        transition: transform 0.3s ease;
       }
     }
 
-    // Mobile styles
     @include tablette {
-      .navbar-bar { display: flex; }
+      .navbar-bar { display: block; }
 
       .navbar-ul {
         flex-direction: column;
@@ -107,30 +115,42 @@ $dark-blue: #151541;
         top: 70px;
         left: 0;
         width: 100%;
-        padding: 20px 25px;
-        gap: 25px;
+        padding: 20px 0;
+        margin: 0;
+        box-sizing: border-box;
         background: #fff;
         box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         border-top: 1px solid rgba(0,0,0,0.05);
         max-height: 0;
-        opacity: 0;
-        transform: translateY(-20px);
         overflow: hidden;
+        opacity: 0;
         pointer-events: none;
-        transition: transform 0.4s ease, opacity 0.4s ease, max-height 0.4s ease;
+        transition: all 0.4s ease;
 
         &.navbarOpen {
-          max-height: 500px;
+          max-height: 80vh;
           opacity: 1;
-          transform: translateY(0);
           pointer-events: auto;
         }
 
         .navbar-link {
           width: 100%;
+          padding: 12px 20px;
           color: $primary-blue;
+          font-weight: 700;
+          transition: background 0.2s ease, transform 0.2s ease;
+
+          &:hover {
+            background: rgba($primary-blue, 0.05);
+            transform: translateX(4px);
+          }
         }
       }
     }
   }
+}
+
+// FIX GLOBAL SCROLL HORIZONTAL
+html, body {
+  overflow-x: hidden;
 }

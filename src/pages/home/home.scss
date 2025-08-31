@@ -11,7 +11,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 40px;
-    padding: 80px 20px;
+    padding: 100px 40px;
+    @include tablette {
+      padding: 80px 20px;
+
+    }
 
     .home__left {
       flex: 1;
@@ -23,7 +27,7 @@
         background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        line-height: 1.2;
+        line-height: 1.2
       }
 
       .home__desc {
@@ -136,87 +140,6 @@
     }
   }
 
-  // Data section
-  .data {
-    margin-top: 70px;
-    padding: 0 20px;
-
-    .data_title_row {
-      text-align: center;
-      margin-bottom: 50px;
-
-      .data-title {
-        font-size: 2rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        @media (max-width: 768px) {
-              font-size: 1rem;
-            }
-
-        .title-underline {
-          display: block;
-          height: 5px;
-          width: 80px;
-          margin: 15px auto 0;
-          border-radius: 3px;
-          background: linear-gradient(270deg, #007bff, #00c6ff, #0056d6);
-          background-size: 400% 400%;
-          animation: gradientMove 3s ease infinite, expandPulse 2s ease-in-out infinite;
-        }
-      }
-    }
-
-    .data__wrapper {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-
-      .data__row {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 14px;
-        padding: 28px 20px;
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 18px;
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(12px);
-        transition: transform 0.35s ease, box-shadow 0.35s ease;
-        cursor: pointer;
-        text-align: center;
-
-        &:hover {
-          transform: translateY(-7px) scale(1.03);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-
-        &:focus-visible {
-          outline: 3px solid #007bff;
-          outline-offset: 4px;
-        }
-
-        .home_data_img {
-          height: 65px;
-          width: 65px;
-          object-fit: contain;
-          transition: transform 0.35s ease;
-
-          &:hover { transform: rotate(8deg) scale(1.1); }
-        }
-
-        .home_desc_data { font-size: 1.35rem; font-weight: 700; color: #272763; }
-        .home_card_desc { font-size: 1rem; line-height: 1.6; color: #555; max-width: 260px; margin: 0 auto; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
-      }
-
-      // Responsive grid gaps et colonnes
-      @include miniTablette { gap: 20px; }
-      @include mobile { grid-template-columns: 1fr; gap: 15px; }
-    }
-  }
 }
 
 /* ANIMATIONS */

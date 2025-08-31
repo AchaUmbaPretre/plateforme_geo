@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from '../footer/Footer';
 import Navbar from '../navbar/Navbar';
+import './layout.scss'
 
 const Layout = () => (
   <div className='app-rows'>

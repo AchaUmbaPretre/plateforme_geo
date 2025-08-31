@@ -1,245 +1,145 @@
-.donnees{
-    width: 100%;
-    margin-top: 20px;
-    .donnees_wrapper{
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+@import '../../style.scss';
+
+.donnees {
+  width: 100%;
+  margin-top: 20px;
+
+  .donnees_wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; // Permet aux colonnes de se réorganiser
+
+    .donnees_left {
+      flex: 1;
+      min-width: 280px; // largeur minimale pour mobile
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .donnees_title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
+
+      .donnees_filtre {
         display: flex;
-        gap: 20px;
-        .donnees_left {
-            flex: 1;
-            padding: 20px;
-            background: #fff;
-            border: 1px solid #e6e6e6;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        flex-direction: column;
+        gap: 6px;
 
-        .donnees_title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
+        .donnees_label { font-size: 14px; font-weight: 500; color: #444; }
+
+        .donnees_input {
+          padding: 10px 14px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          font-size: 14px;
+          transition: all 0.2s ease;
+
+          &:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            outline: none;
+          }
         }
+      }
 
-        .donnees_filtre {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+      .donnees_type_card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 
-            .donnees_label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #444;
-            }
+        .donnees_span { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: #222; }
 
-            .donnees_input {
-            padding: 10px 14px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.2s ease;
+        .donnees_check_row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
 
-            &:focus {
-                border-color: #2563eb;
-                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-                outline: none;
-            }
-            }
+          input[type='checkbox'] { width: 16px; height: 16px; cursor: pointer; accent-color: #2563eb; }
+
+          .donnees_check_desc { font-size: 14px; color: #333; cursor: pointer; transition: color 0.2s;
+
+            &:hover { color: #2563eb; }
+          }
         }
-
-        .donnees_type_card {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-
-            .donnees_span {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #222;
-            }
-
-            .donnees_check_row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-
-            input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
-                cursor: pointer;
-                accent-color: #2563eb;
-            }
-
-            .donnees_check_desc {
-                font-size: 14px;
-                color: #333;
-                cursor: pointer;
-                transition: color 0.2s;
-
-                &:hover {
-                color: #2563eb;
-                }
-            }
-            }
-        }
-
-        .donnees_btn {
-            margin-top: 10px;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: background 0.3s ease;
-
-            &:hover {
-            background: #1d4ed8;
-            }
-        }
-        }
-
-        .donnees_right{
-            flex: 3;
-            padding: 20px;
-            background: #fff;
-            border: 1px solid #e6e6e6;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            .donnees_top{
-                border: 1px solid #e6e6e6;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                padding: 15px;
-                .donnees_results{
-                    font-size: .9rem;
-                }
-            }
-            .donnees__bottom{
-                width: 100%;
-                display: flex;
-                gap: 10px;
-                .donnees__bottom_left{
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                    .donnees__left_card {
-                border: 1px solid #e6e6e6;
-                border-radius: 14px;
-                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-                padding: 20px;
-                background: #fff;
-                display: flex;
-                flex-direction: column;
-                gap: 14px;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-                &:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-                }
-
-                .donnees__title_card {
-                    font-size: 1rem;
-                    font-weight: 600;
-                    color: #1a1a1a;
-                    margin-bottom: 6px;
-                }
-
-                .donnees_row {
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 16px;
-
-                    .donnees_card_vignette {
-                    flex-shrink: 0;
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 10px;
-                    overflow: hidden;
-                    background: #f5f5f5;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                    }
-
-                    .donnees_card_info {
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 12px;
-
-                    .donnees_desc {
-                        font-size: 0.9rem;
-                        color: #444;
-                        line-height: 1.4;
-                        max-height: 3.6em; // limite 2 lignes
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-
-                    .donnees_card_btn {
-                        display: flex;
-                        gap: 10px;
-
-                        .detail_btn {
-                        padding: 8px 14px;
-                        border-radius: 8px;
-                        font-size: 0.85rem;
-                        font-weight: 500;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        border: none;
-
-                        &.primary {
-                            background: #2563eb;
-                            color: #fff;
-
-                            &:hover {
-                            background: #1d4ed8;
-                            }
-                        }
-
-                        &.secondary {
-                            background: #f3f4f6;
-                            color: #333;
-
-                            &:hover {
-                            background: #e5e7eb;
-                            }
-                        }
-                        }
-                    }
-                    }
-                }
-                }
-
-                }
-                .donnees__bottom_right{
-                    flex: 1;
-                    border: 1px solid #e6e6e6;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                    padding: 20px;
-                }
-            }
-        }
+      }
     }
+
+    .donnees_right {
+      flex: 3;
+      min-width: 300px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .donnees_top {
+        border: 1px solid #e6e6e6;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        padding: 15px;
+
+        .donnees_results { font-size: 0.9rem; }
+      }
+
+      .donnees__bottom {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .donnees__bottom_left {
+          flex: 2;
+          min-width: 280px;
+        }
+
+        .donnees__bottom_right {
+          flex: 3;
+          min-width: 280px;
+          border: 1px solid #e6e6e6;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+          padding: 20px;
+
+          .leaflet-container { height: 400px; width: 100%; border-radius: 12px; }
+        }
+      }
+    }
+  }
+
+  // --- MEDIA QUERIES ---
+  @media (max-width: 1024px) {
+    .donnees_wrapper {
+      flex-direction: column;
+      .donnees_right { padding: 15px; }
+      .donnees_left { padding: 15px; }
+      .donnees__bottom { flex-direction: column; }
+      .donnees__bottom_right .leaflet-container { height: 300px; }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .donnees_wrapper {
+      padding: 0 10px;
+      gap: 15px;
+    }
+    .donnees_left, .donnees_right { padding: 10px; }
+    .donnees__bottom_right .leaflet-container { height: 250px; }
+    .donnees__left_card { padding: 15px; }
+  }
+
+  @media (max-width: 480px) {
+    .donnees__bottom_right .leaflet-container { height: 200px; }
+    .donnees__left_card .donnees_row { flex-direction: column; gap: 10px; }
+    .donnees_card_vignette { width: 100%; height: 150px; }
+  }
 }
