@@ -4,8 +4,7 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
-
+  margin-top: 40px;
 
     @include tablette {
       padding: 50px 0 20px 0;
@@ -13,6 +12,8 @@
 
   .contact-wrapper {
     width: 100%;
+    margin: 0 auto;
+
 
     @include laptop {
       width: 900px;
@@ -96,7 +97,7 @@
 
         @include mobile {
           flex-direction: column;
-          gap: 30px;
+          gap: 20px;
         }
 
         .contact-left,
@@ -149,7 +150,7 @@
               .contact-row-text {
                 display: flex;
                 flex-direction: column;
-                gap: 6px;
+                gap: 2;
 
                 .contact-text-h2 {
                   font-family: 'Anton', sans-serif;

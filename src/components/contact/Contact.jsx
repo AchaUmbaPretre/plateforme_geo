@@ -29,7 +29,7 @@ const Contact = () => {
                                     </div>
                                     <div className="contact-row-text">
                                         <h2 className="contact-text-h2">Location:</h2>
-                                        <span className="contact-txt">25 avenue xxx Commune de xxxx</span>
+                                        <span className="contact-txt">10ieme rue N°20 Q/Industriel Commune de Limete RDC</span>
                                     </div>
                                 </div>
 
@@ -39,7 +39,7 @@ const Contact = () => {
                                     </div>
                                     <div className="contact-row-text">
                                         <h2 className="contact-text-h2">Email:</h2>
-                                        <span className="contact-txt"><a href='https://info@xxxx.Com' className="contact-txt" >info@xxxx.Com</a></span>
+                                        <span className="contact-txt"><a href='https://lensgabriel1@gmail.com' className="contact-txt" >lensgabriel1@gmail.com</a></span>
                                     </div>
                                 </div>
 
@@ -49,18 +49,19 @@ const Contact = () => {
                                     </div>
                                     <div className="contact-row-text">
                                         <h2 className="contact-text-h2">Telephone:</h2>
-                                        <span className="contact-txt">+243 000000</span>
+                                        <span className="contact-txt">+243823956649</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="contact-left-bottom">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.4334450565507!2d15.268762665319963!3d-4.329408186018682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a317bcc7b4d15%3A0x9e7487b7f498d9d8!2s25%20O.U.A%2C%20Kinshasa!5e0!3m2!1sfr!2scd!4v1689414951569!5m2!1sfr!2scd" 
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.3070476026837!2d15.338767374761652!3d-4.353386386948027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a36e68eb1b839%3A0x968fdaae8c53fefc!2sInstitut%20du%20P%C3%A9trole%20et%20du%20Gaz!5e0!3m2!1sfr!2scd!4v1756638164218!5m2!1sfr!2scd" 
                                     width={"100%"}
-                                    height={"300"}
-                                    style={{border:"0"}} 
-                                    allowfullscreen={""} 
+                                    height="300" 
+                                    style={{border:"0"}}
+                                    allowfullscreen="" 
                                     loading={"lazy"} 
-                                    referrerpolicy={"no-referrer-when-downgrade"} />
+                                    referrerpolicy="no-referrer-when-downgrade" 
+                                />
                             </div>
                         </div>
 

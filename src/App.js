@@ -6,6 +6,7 @@ import NotFound from './pages/notfound/Notfound';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import Donnees from './pages/donnees/Donnees';
+import Abonnement from './pages/abonnement/Abonnement';
 
 const Home = lazy(() => import('./pages/home/Home'));
 const Forage = lazy(() => import('./pages/forage/Forage'));
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: '/hydrologiques', element: <Hydrologiques /> },
       { path: '/perochimie', element: <Perochimie /> },
       { path: '/petrolier', element: <Petrolier /> },
+      { path: '/abonnement', element: <Abonnement /> },
       { path: '/register', element: <Register /> },
       { path: '/login', element: <Login /> },
       { path: '*', element: <NotFound /> }

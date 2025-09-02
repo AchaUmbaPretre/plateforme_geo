@@ -1,0 +1,177 @@
+/* abonnement.scss */
+.abonnement {
+  display: flex;
+  justify-content: center;
+  margin: 80px 20px 40px;
+  font-family: 'Nunito', sans-serif;
+
+  .abonnement-card {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    background: #ffffff;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+    }
+
+    .abonnement-header {
+      text-align: center;
+      margin-bottom: 24px;
+      transition: transform 0.3s ease;
+
+      .abonnement-icon {
+        font-size: 36px;
+        color: #fa8c16;
+        margin-bottom: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover .abonnement-icon {
+        transform: rotate(10deg) scale(1.1);
+      }
+
+      .ant-typography {
+        margin-bottom: 4px;
+      }
+    }
+
+    .ant-form-item-label > label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .ant-input,
+    .ant-select-selector {
+      border-radius: 8px !important;
+      padding: 10px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+
+      &:focus,
+      &:hover {
+        border-color: #fa8c16 !important;
+        box-shadow: 0 0 0 2px rgba(250, 140, 22, 0.15);
+      }
+    }
+
+    .countdown-wrapper {
+  margin-bottom: 16px;
+
+  .countdown-bar {
+    width: 100%;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .countdown-progress {
+    height: 100%;
+    transition: width 1s linear, background 0.5s ease;
+
+    &.green {
+      background: #52c41a; // vert
+    }
+    &.orange {
+      background: #fa8c16; // orange
+    }
+    &.red {
+      background: #f5222d; // rouge
+    }
+  }
+}
+
+
+    .btn-payer {
+      background: #fa8c16;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      transform: translateY(0);
+
+      &:hover {
+        background: #e67e22;
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      &:disabled {
+        background: #f0f0f0;
+        color: #bfbfbf;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+
+    .resume {
+      margin-bottom: 16px;
+
+      .ant-alert {
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.6;
+        transition: transform 0.3s ease, background 0.3s ease;
+
+        .ant-alert-message {
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+
+        .ant-alert-description p {
+          margin: 4px 0;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          background: #fffbe6;
+        }
+      }
+    }
+
+    .countdown {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background: #fff7e6;
+      border: 1px solid #ffe58f;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      color: #fa8c16;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.3s ease;
+
+      svg {
+        font-size: 18px;
+        animation: pulse 1.5s infinite;
+      }
+
+      &:hover {
+        background: #fff4e6;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    margin: 40px 16px;
+
+    .abonnement-card {
+      padding: 24px 16px;
+    }
+  }
+}
+
+/* Animations subtiles */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}

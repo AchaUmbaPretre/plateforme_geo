@@ -4,9 +4,11 @@ import homeImg from './../../assets/imgHome.png';
 import About from '../../components/about/About';
 import Contact from '../../components/contact/Contact';
 import Services from '../../components/services/Services';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
+  const navigate = useNavigate();
 
   return (
     <div className="home">
@@ -42,6 +44,7 @@ const Home = () => {
               whileHover={{ scale: 1.07, y: -3 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 250 }}
+              onClick={() => navigate("/abonnement")} 
             >
               🚀 Souscrire à un abonnement
             </motion.button>

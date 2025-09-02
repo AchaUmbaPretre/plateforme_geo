@@ -23,9 +23,9 @@ const Footer = () => {
               <div className="apropos-barre"><span className="apropos-moov"></span></div>
             </div>
             <div className="footer-contact">
-              <div className="footer-row-icon"><LocationOn className="footer-icon" /><span>6 xxxxx, Kinshasa xxxx, RDC</span></div>
-              <div className="footer-row-icon"><Mail className="footer-icon" /><span>hello@xxxx.com</span></div>
-              <div className="footer-row-icon"><Call className="footer-icon" /><span>+243</span></div>
+              <div className="footer-row-icon"><LocationOn className="footer-icon" /><span>10ieme rue N°20 Q/Industriel Commune de Limete, RDC</span></div>
+              <div className="footer-row-icon"><Mail className="footer-icon" /><span>lensgabriel1@gmail.com</span></div>
+              <div className="footer-row-icon"><Call className="footer-icon" /><span>+243 823956649</span></div>
               <div className="footer-reseaux">
                 <Twitter className="footer-rsx"/><FacebookOutlined className="footer-rsx"/>
                 <LinkedIn className="footer-rsx"/><Instagram className="footer-rsx"/>
