@@ -31,23 +31,70 @@ const cardVariants = {
 };
 
 const Services = () => {
-  const dataItems = [
-    { img: geographique, label: 'Géographique', desc: 'Cartographie et localisation des territoires, facilitant la gestion et l’analyse spatiale.' },
-    { img: geologique, label: 'Géologiques', desc: 'Informations sur la structure du sous-sol, les roches et formations géologiques.' },
-    { img: hydrologique, label: 'Hydrologiques', desc: 'Données sur les rivières, lacs et nappes, utiles pour la gestion des ressources en eau.' },
-    { img: hydrogeologique, label: 'Hydrogéologiques', desc: 'Analyse des eaux souterraines et des aquifères pour une exploitation durable.' },
-    { img: forage, label: 'Forage', desc: 'Suivi et documentation des activités de forage pour l’eau ou l’exploration.' },
-    { img: petrolier, label: 'Pétrolier', desc: 'Informations relatives à l’exploration et l’exploitation des ressources pétrolières.' },
-    { img: geochimie, label: 'Géochimie', desc: 'Étude de la composition chimique des sols et des minéraux pour l’exploration minière.' },
-    { img: geophysique, label: 'Géophysique', desc: 'Analyses basées sur les propriétés physiques du sous-sol (magnétique, sismique, etc.).' },
-    { img: petrochimie, label: 'Pétrochimie', desc: 'Transformations chimiques des hydrocarbures en produits industriels utiles.' },
-    { img: environnement, label: 'Environnement', desc: 'Transformations chimiques des hydrocarbures en produits industriels utiles.' },
-    { img: petrophysique, label: 'Environnement', desc: 'Transformations chimiques des hydrocarbures en produits industriels utiles.' },
-    { img: petrole, label: 'Etude dans le pétrole', desc: 'Transformations chimiques des hydrocarbures en produits industriels utiles.' },
 
+const dataItems = [
+  { 
+    img: geographique, 
+    label: 'Géographique', 
+    desc: 'Cartographie et localisation des territoires, facilitant la gestion et l’analyse spatiale.' 
+  },
+  { 
+    img: geologique, 
+    label: 'Géologiques', 
+    desc: 'Informations sur la structure du sous-sol, les roches et formations géologiques.' 
+  },
+  { 
+    img: hydrologique, 
+    label: 'Hydrologiques', 
+    desc: 'Données sur les rivières, lacs et nappes, utiles pour la gestion des ressources en eau.' 
+  },
+  { 
+    img: hydrogeologique, 
+    label: 'Hydrogéologiques', 
+    desc: 'Analyse des eaux souterraines et des aquifères pour une exploitation durable.' 
+  },
+  { 
+    img: forage, 
+    label: 'Forage', 
+    desc: 'Suivi et documentation des activités de forage pour l’eau ou l’exploration minière et énergétique.' 
+  },
+  { 
+    img: petrolier, 
+    label: 'Pétrolier', 
+    desc: 'Informations relatives à l’exploration, l’exploitation et la production des ressources pétrolières.' 
+  },
+  { 
+    img: geochimie, 
+    label: 'Géochimie', 
+    desc: 'Étude de la composition chimique des sols, eaux et minéraux pour l’exploration et l’environnement.' 
+  },
+  { 
+    img: geophysique, 
+    label: 'Géophysique', 
+    desc: 'Analyses basées sur les propriétés physiques du sous-sol (magnétisme, sismique, gravimétrie, etc.).' 
+  },
+  { 
+    img: petrochimie, 
+    label: 'Pétrochimie', 
+    desc: 'Transformation des hydrocarbures en produits industriels (plastiques, carburants, engrais, etc.).' 
+  },
+  { 
+    img: environnement, 
+    label: 'Environnement', 
+    desc: 'Études d’impact, suivi écologique et gestion durable des ressources naturelles.' 
+  },
+  { 
+    img: petrophysique, 
+    label: 'Pétrophysique', 
+    desc: 'Analyse des propriétés physiques et chimiques des roches réservoirs pour l’exploration pétrolière.' 
+  },
+  { 
+    img: petrole, 
+    label: 'Études pétrolières', 
+    desc: 'Recherches et analyses globales liées au pétrole, de la prospection à la production.' 
+  },
+];
 
-
-  ];
 
   return (
     <div className="data" id="nosservices">
