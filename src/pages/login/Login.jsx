@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.scss';
+import { loginUser, registerUser } from '../../services/auth.service';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Login = () => {
   };
 
   const toggleForm = () => {
-    setIsLogin(!isLogin);
+    setIsLogin(prev => !prev);
     setError('');
     setFormData({ nom: '', email: '', phone: '', password: '' });
   };
@@ -26,19 +26,38 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const url = isLogin 
-        ? 'http://localhost:5000/api/auth/login' 
-        : 'http://localhost:5000/api/auth/register';
-
-      const payload = isLogin 
-        ? { email: formData.email, password: formData.password } 
+      const payload = isLogin
+        ? { email: formData.email, password: formData.password }
         : formData;
 
-      const { data } = await axios.post(url, payload);
-      localStorage.setItem('token', data.token);
-      navigate('/dashboard');
+      const { data } = isLogin
+        ? await loginUser(payload)
+        : await registerUser(payload);
+
+      if (isLogin) {
+        // ✅ connexion : on stocke le token et on redirige
+        if (data?.token) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem("user", JSON.stringify(data.user)); // ⚡ stocke l'objet utilisateur
+
+          navigate('/');
+        } else {
+          throw new Error("Token non reçu du serveur");
+        }
+      } else {
+        // ✅ inscription : on redirige vers login
+        setIsLogin(true);
+        setFormData({ nom: '', email: '', phone: '', password: '' });
+        setError('');
+        alert("Compte créé avec succès, veuillez vous connecter !");
+      }
+
     } catch (err) {
-      setError(err.response?.data.message || 'Erreur serveur');
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        'Erreur serveur, veuillez réessayer.'
+      );
     } finally {
       setLoading(false);
     }
@@ -106,7 +125,9 @@ const Login = () => {
 
           <p className="toggle-text">
             {isLogin ? "Pas de compte ?" : "Déjà un compte ?"}{' '}
-            <span onClick={toggleForm}>{isLogin ? "Inscrivez-vous" : "Connectez-vous"}</span>
+            <span onClick={toggleForm}>
+              {isLogin ? "Inscrivez-vous" : "Connectez-vous"}
+            </span>
           </p>
         </form>
       </div>
