@@ -40,21 +40,24 @@ const dataItems = [
     img: geographique, 
     label: 'Géographique', 
     desc: 'Cartographie et localisation des territoires, facilitant la gestion et l’analyse spatiale.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${1}`)
+
   },
   { 
     id: 2,
     img: geologique, 
     label: 'Géologiques', 
     desc: 'Informations sur la structure du sous-sol, les roches et formations géologiques.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${2}`)
+
   },
   { 
     id: 3,
     img: hydrologique, 
     label: 'Hydrologiques', 
     desc: 'Données sur les rivières, lacs et nappes, utiles pour la gestion des ressources en eau.',
-    url: navigate('/donnees_type')
+       url: navigate(`/donnees_type?id_type=${3}`)
+
 
   },
   { 
@@ -62,14 +65,16 @@ const dataItems = [
     img: hydrogeologique, 
     label: 'Hydrogéologiques', 
     desc: 'Analyse des eaux souterraines et des aquifères pour une exploitation durable.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${4}`)
+
   },
   { 
     id:5,
     img: forage, 
     label: 'Forage', 
     desc: 'Suivi et documentation des activités de forage pour l’eau ou l’exploration minière et énergétique.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${5}`)
+
 
   },
   { 
@@ -77,28 +82,32 @@ const dataItems = [
     img: petrolier, 
     label: 'Pétrolier', 
     desc: 'Informations relatives à l’exploration, l’exploitation et la production des ressources pétrolières.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${6}`)
+
   },
   { 
     id:7,
     img: geochimie, 
     label: 'Géochimie', 
     desc: 'Étude de la composition chimique des sols, eaux et minéraux pour l’exploration et l’environnement.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${7}`)
+
   },
   { 
     id:8,
     img: geophysique, 
     label: 'Géophysique', 
     desc: 'Analyses basées sur les propriétés physiques du sous-sol (magnétisme, sismique, gravimétrie, etc.).',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${8}`)
+
   },
   { 
     id: 9,
     img: petrochimie, 
     label: 'Pétrochimie', 
     desc: 'Transformation des hydrocarbures en produits industriels (plastiques, carburants, engrais, etc.).',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${9}`)
+
 
   },
   { 
@@ -106,7 +115,7 @@ const dataItems = [
     img: environnement, 
     label: 'Environnement', 
     desc: 'Études d’impact, suivi écologique et gestion durable des ressources naturelles.',
-    url: navigate('/donnees_type')
+    url: navigate(`/donnees_type?id_type=${13}`)
 
   },
   { 
@@ -114,14 +123,16 @@ const dataItems = [
     img: petrophysique, 
     label: 'Pétrophysique', 
     desc: 'Analyse des propriétés physiques et chimiques des roches réservoirs pour l’exploration pétrolière.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${14}`)
+
   },
   { 
     id: 15,
     img: petrole, 
     label: 'Études pétrolières', 
     desc: 'Recherches et analyses globales liées au pétrole, de la prospection à la production.',
-    url: navigate('/donnees_type')
+        url: navigate(`/donnees_type?id_type=${15}`)
+
   },
 ];
 
@@ -172,7 +183,7 @@ const dataItems = [
               className="detail-btn"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => alert(`Voir le détail de ${data.label}`)}
+              onClick={() => navigate(data.url)}
             >
               Voir détail
             </motion.button>

@@ -1,9 +1,13 @@
-import React from 'react'
+import './donneesType.scss'
 
 const DonneesType = () => {
-    
+
   return (
-    <div>DonneesType</div>
+    <>
+        <div className="donneesType">
+            AAAAAAAAAAA
+        </div>  
+    </>
   )
 }
 
