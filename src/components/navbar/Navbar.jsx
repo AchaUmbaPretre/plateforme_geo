@@ -1,74 +1,60 @@
-import "./navbar.scss";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Close } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 import logo from './../../assets/logo.jpeg';
-import Avatar from '@mui/material/Avatar'; // ✅ avatar pro Material UI
+import './navbar.scss';
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen(prev => !prev);
-  const closeMenu = () => setMenuOpen(false);
+  const toggleDropdown = () => setDropdownOpen(prev => !prev);
 
-  // Vérifie le token au montage
-  useEffect(() => {
-    setIsAuthenticated(!!localStorage.getItem("token"));
-  }, []);
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
-  // Gérer scroll pour sticky navbar
-  useEffect(() => {
+  // Effet sticky
+  React.useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Déconnexion
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    navigate("/login");
-  };
-
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-wrapper">
-        <Link to="/">
-          <img src={logo} alt="Logo" className="navbar-logo" />
-        </Link>
+        <Link to="/"><img src={logo} alt="Logo" className="navbar-logo" /></Link>
 
         <div className="navbar-right">
-          {/* Bouton burger pour mobile */}
-          <button 
-            className="navbar-bar" 
-            onClick={toggleMenu} 
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
+          <button className="navbar-bar" onClick={toggleMenu}>
             {menuOpen ? <Close /> : <Menu />}
           </button>
 
           <ul className={`navbar-ul ${menuOpen ? "navbarOpen" : ""}`}>
-            <li><Link to="/" className="navbar-link" onClick={closeMenu}>Accueil</Link></li>
-            <li><a href="#nosservices" className="navbar-link" onClick={closeMenu}>Nos données</a></li>
-            <li><a href="#contact" className="navbar-link" onClick={closeMenu}>Contactez-nous</a></li>
+            <li><Link to="/" className="navbar-link">Accueil</Link></li>
+            <li><a href="#nosservices" className="navbar-link">Nos données</a></li>
+            <li><a href="#contact" className="navbar-link">Contactez-nous</a></li>
 
-            {/* Si pas connecté */}
-            {!isAuthenticated ? (
-              <li>
-                <Link to="/login" className="navbar-link" onClick={closeMenu}>
-                  Se connecter
-                </Link>
+            {user ? (
+              <li className="navbar-user">
+                <div className="navbar-avatar" onClick={toggleDropdown}>
+                  {`${user.nom?.[0] ?? ""}${user.prenom?.[0] ?? ""}`.toUpperCase()}
+                </div>
+                <div className={`user-dropdown ${dropdownOpen ? "open" : ""}`}>
+                  <div className="dropdown-item" onClick={() => navigate("/profile")}>Profil</div>
+                  <div className="dropdown-item logout-btn" onClick={handleLogout}>Déconnecter</div>
+                </div>
               </li>
             ) : (
-              <li className="navbar-user">
-                <Avatar alt="User Avatar" src="/static/images/avatar/1.jpg" />
-                <button className="logout-btn" onClick={handleLogout}>
-                  Déconnecter
-                </button>
+              <li>
+                <Link to="/login" className="login-btn">Se connecter</Link>
               </li>
             )}
           </ul>

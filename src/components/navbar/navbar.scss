@@ -3,6 +3,7 @@
 $primary-blue: #1f1fe4;
 $gold-accent: #ffd700;
 $dark-blue: #151541;
+$avatar-size: 38px;
 
 // Breakpoint tablette/mobile
 @mixin tablette {
@@ -19,11 +20,11 @@ $dark-blue: #151541;
   right: 0;
   z-index: 999;
   background: #fff;
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.151);
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
 
   &.scrolled {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     background: #fff;
   }
 
@@ -55,6 +56,7 @@ $dark-blue: #151541;
 
     .navbar-ul {
       display: flex;
+      align-items: center;
       gap: 28px;
       list-style: none;
       transition: all 0.3s ease;
@@ -65,8 +67,8 @@ $dark-blue: #151541;
         font-weight: 600;
         text-transform: uppercase;
         color: $dark-blue;
+        font-size: 0.85rem;
         transition: all 0.3s ease;
-        font-size: .8rem;
 
         &:hover {
           color: $gold-accent;
@@ -87,6 +89,82 @@ $dark-blue: #151541;
         &:hover::after,
         &.active::after {
           width: 100%;
+        }
+      }
+
+      .login-btn {
+        padding: 6px 16px;
+        background-color: $primary-blue;
+        color: #fff;
+        border-radius: 5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: darken($primary-blue, 10%);
+          transform: translateY(-2px);
+        }
+      }
+
+      .navbar-user {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .navbar-avatar {
+          width: $avatar-size;
+          height: $avatar-size;
+          border-radius: 50%;
+          background-color: $primary-blue;
+          color: #fff;
+          font-weight: 700;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+
+          &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          }
+        }
+
+        .user-dropdown {
+          position: absolute;
+          top: calc($avatar-size + 10px);
+          right: 0;
+          background: #fff;
+          border-radius: 6px;
+          box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+          min-width: 140px;
+          display: none;
+          flex-direction: column;
+          z-index: 100;
+          transition: all 0.2s ease;
+
+          &.open { display: flex; }
+
+          .dropdown-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: $dark-blue;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: rgba($primary-blue, 0.05);
+              color: $primary-blue;
+            }
+
+            &.logout-btn:hover {
+              color: red;
+              background: rgba(255,0,0,0.05);
+            }
+          }
         }
       }
     }
@@ -133,11 +211,12 @@ $dark-blue: #151541;
           pointer-events: auto;
         }
 
-        .navbar-link {
+        .navbar-link,
+        .login-btn {
           width: 100%;
           padding: 12px 20px;
-          color: $primary-blue;
           font-weight: 700;
+          color: $primary-blue;
           transition: background 0.2s ease, transform 0.2s ease;
 
           &:hover {
