@@ -10,3 +10,7 @@ export const getDonnees = async () => {
 export const getDonneesOne = async (id) => {
     return axios.get(`${DOMAIN}/api/donnees/one?id=${id}`);
   };
+
+export const getDonneesType = async (id) => {
+    return axios.get(`${DOMAIN}/api/donnees/type_one?id_type=${id}`);
+  };
