@@ -12,6 +12,7 @@ import petrochimie from './../../assets/petrochimie.png';
 import environnement from './../../assets/environnement.png';
 import petrophysique from './../../assets/petrophysiqu.png';
 import petrole from './../../assets/etudePetrole.png';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -31,67 +32,96 @@ const cardVariants = {
 };
 
 const Services = () => {
+  const navigate = useNavigate();
 
 const dataItems = [
   { 
+    id: 1,
     img: geographique, 
     label: 'Géographique', 
-    desc: 'Cartographie et localisation des territoires, facilitant la gestion et l’analyse spatiale.' 
+    desc: 'Cartographie et localisation des territoires, facilitant la gestion et l’analyse spatiale.',
+    url: navigate('/donnees_type')
   },
   { 
+    id: 2,
     img: geologique, 
     label: 'Géologiques', 
-    desc: 'Informations sur la structure du sous-sol, les roches et formations géologiques.' 
+    desc: 'Informations sur la structure du sous-sol, les roches et formations géologiques.',
+    url: navigate('/donnees_type')
   },
   { 
+    id: 3,
     img: hydrologique, 
     label: 'Hydrologiques', 
-    desc: 'Données sur les rivières, lacs et nappes, utiles pour la gestion des ressources en eau.' 
+    desc: 'Données sur les rivières, lacs et nappes, utiles pour la gestion des ressources en eau.',
+    url: navigate('/donnees_type')
+
   },
   { 
+    id:4,
     img: hydrogeologique, 
     label: 'Hydrogéologiques', 
-    desc: 'Analyse des eaux souterraines et des aquifères pour une exploitation durable.' 
+    desc: 'Analyse des eaux souterraines et des aquifères pour une exploitation durable.',
+    url: navigate('/donnees_type')
   },
   { 
+    id:5,
     img: forage, 
     label: 'Forage', 
-    desc: 'Suivi et documentation des activités de forage pour l’eau ou l’exploration minière et énergétique.' 
+    desc: 'Suivi et documentation des activités de forage pour l’eau ou l’exploration minière et énergétique.',
+    url: navigate('/donnees_type')
+
   },
   { 
+    id:6,
     img: petrolier, 
     label: 'Pétrolier', 
-    desc: 'Informations relatives à l’exploration, l’exploitation et la production des ressources pétrolières.' 
+    desc: 'Informations relatives à l’exploration, l’exploitation et la production des ressources pétrolières.',
+    url: navigate('/donnees_type')
   },
   { 
+    id:7,
     img: geochimie, 
     label: 'Géochimie', 
-    desc: 'Étude de la composition chimique des sols, eaux et minéraux pour l’exploration et l’environnement.' 
+    desc: 'Étude de la composition chimique des sols, eaux et minéraux pour l’exploration et l’environnement.',
+    url: navigate('/donnees_type')
   },
   { 
+    id:8,
     img: geophysique, 
     label: 'Géophysique', 
-    desc: 'Analyses basées sur les propriétés physiques du sous-sol (magnétisme, sismique, gravimétrie, etc.).' 
+    desc: 'Analyses basées sur les propriétés physiques du sous-sol (magnétisme, sismique, gravimétrie, etc.).',
+    url: navigate('/donnees_type')
   },
   { 
+    id: 9,
     img: petrochimie, 
     label: 'Pétrochimie', 
-    desc: 'Transformation des hydrocarbures en produits industriels (plastiques, carburants, engrais, etc.).' 
+    desc: 'Transformation des hydrocarbures en produits industriels (plastiques, carburants, engrais, etc.).',
+    url: navigate('/donnees_type')
+
   },
   { 
+    id: 13,
     img: environnement, 
     label: 'Environnement', 
-    desc: 'Études d’impact, suivi écologique et gestion durable des ressources naturelles.' 
+    desc: 'Études d’impact, suivi écologique et gestion durable des ressources naturelles.',
+    url: navigate('/donnees_type')
+
   },
   { 
+    id: 14,
     img: petrophysique, 
     label: 'Pétrophysique', 
-    desc: 'Analyse des propriétés physiques et chimiques des roches réservoirs pour l’exploration pétrolière.' 
+    desc: 'Analyse des propriétés physiques et chimiques des roches réservoirs pour l’exploration pétrolière.',
+    url: navigate('/donnees_type')
   },
   { 
+    id: 15,
     img: petrole, 
     label: 'Études pétrolières', 
-    desc: 'Recherches et analyses globales liées au pétrole, de la prospection à la production.' 
+    desc: 'Recherches et analyses globales liées au pétrole, de la prospection à la production.',
+    url: navigate('/donnees_type')
   },
 ];
 
