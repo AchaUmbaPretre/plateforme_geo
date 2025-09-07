@@ -70,7 +70,7 @@ const DonneesType = () => {
 
   return (
     <div className="donneesType">
-      <h2 className="donneesType-title">Données pour le type : {idType}</h2>
+      <h2 className="donneesType-title">Données pour le type : {data[0]?.nom_type}</h2>
       <div className="donneesType-grid">
         {data.map((item, index) => (
           <motion.div

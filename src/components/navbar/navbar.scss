@@ -211,12 +211,23 @@ $avatar-size: 38px;
           pointer-events: auto;
         }
 
-        .navbar-link,
-        .login-btn {
+        .navbar-link{
           width: 100%;
           padding: 12px 20px;
           font-weight: 700;
           color: $primary-blue;
+          transition: background 0.2s ease, transform 0.2s ease;
+
+          &:hover {
+            background: rgba($primary-blue, 0.05);
+            transform: translateX(4px);
+          }
+        }
+        .login-btn {
+          width: 100%;
+          padding: 12px 20px;
+          font-weight: 700;
+          color: #fff;
           transition: background 0.2s ease, transform 0.2s ease;
 
           &:hover {

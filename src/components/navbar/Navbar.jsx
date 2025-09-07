@@ -40,6 +40,7 @@ const Navbar = () => {
           <ul className={`navbar-ul ${menuOpen ? "navbarOpen" : ""}`}>
             <li><Link to="/" className="navbar-link">Accueil</Link></li>
             <li><a href="#nosservices" className="navbar-link">Nos données</a></li>
+            {user?.role === 'admin' && <li><a href="dashboard.geoconsult-rdc.com" className="navbar-link">Dashboard</a></li>}
             <li><a href="#contact" className="navbar-link">Contactez-nous</a></li>
 
             {user ? (

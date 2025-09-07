@@ -412,26 +412,26 @@ const DonneesOne = () => {
             </div>
 
             {donnee && donnee.latitude && donnee.longitude && (
-  <div className="donneesOne-map" style={{ marginTop: "2rem", borderRadius: "12px", overflow: "hidden" }}>
-    <MapContainer
-      center={[parseFloat(donnee.latitude), parseFloat(donnee.longitude)]}
-      zoom={12}
-      scrollWheelZoom={true}
-      style={{ height: "350px", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={[parseFloat(donnee.latitude), parseFloat(donnee.longitude)]}>
-        <Popup>
-          <strong>{donnee.titre}</strong><br/>
-          {donnee.nom_type} – {donnee.nom_pays} – {donnee.name_fr}
-        </Popup>
-      </Marker>
-    </MapContainer>
-  </div>
-)}
+              <div className="donneesOne-map" style={{ marginTop: "2rem", borderRadius: "12px", overflow: "hidden" }}>
+                <MapContainer
+                  center={[parseFloat(donnee.latitude), parseFloat(donnee.longitude)]}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  style={{ height: "350px", width: "100%" }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[parseFloat(donnee.latitude), parseFloat(donnee.longitude)]}>
+                    <Popup>
+                      <strong>{donnee.titre}</strong><br/>
+                      {donnee.nom_type} – {donnee.nom_pays} – {donnee.name_fr}
+                    </Popup>
+                  </Marker>
+                </MapContainer>
+              </div>
+            )}
 
           </aside>
         </div>
