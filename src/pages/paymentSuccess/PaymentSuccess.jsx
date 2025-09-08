@@ -35,12 +35,12 @@ const PaymentSuccess = () => {
           <p className="subtitle">
             Merci ! Votre paiement a été traité avec succès.
           </p>
-
+{/* 
           <div className="details">
             <p><strong>Référence :</strong> {reference}</p>
             <p><strong>Méthode :</strong> {method}</p>
             <p><strong>Statut :</strong> {status}</p>
-          </div>
+          </div> */}
 
           <div className="actions">
             <Button
