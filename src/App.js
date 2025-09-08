@@ -9,6 +9,9 @@ import Donnees from './pages/donnees/Donnees';
 import Abonnement from './pages/abonnement/Abonnement';
 import DonneesType from './pages/donnees/donneesType/DonneesType';
 import DonneesOne from './pages/donnees/donneesOne/DonneesOne';
+import PaymentSuccess from './pages/paymentSuccess/PaymentSuccess';
+import PaymentFailed from './pages/paymentFailed/PaymentFailed';
+import PaymentCancel from './pages/paymentCancel/PaymentCancel';
 
 const Home = lazy(() => import('./pages/home/Home'));
 const Forage = lazy(() => import('./pages/forage/Forage'));
@@ -27,6 +30,9 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/donnees', element: <Donnees /> },
+      { path: '/payment-success', element: <PaymentSuccess /> },
+      { path: '/pay-failure', element: <PaymentFailed /> },
+      { path: '/pay-cancel', element: <PaymentCancel /> },
       { path: '/forage', element: <Forage /> },
       { path: '/geochimie', element: <Geochimie /> },
       { path: '/geologiques', element: <Geologiques /> },

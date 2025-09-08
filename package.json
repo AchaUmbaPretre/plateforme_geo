@@ -21,6 +21,7 @@
     "jspdf": "^3.0.2",
     "leaflet.fullscreen": "^4.0.0",
     "leaflet.markercluster": "^1.5.3",
+    "lucide-react": "^0.542.0",
     "process": "^0.11.10",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
