@@ -11,12 +11,7 @@ import {
   Alert,
   Space,
 } from "antd";
-import {
-  CreditCardOutlined,
-  PhoneOutlined,
-  CrownOutlined,
-  ClockCircleOutlined,
-} from "@ant-design/icons";
+import { CreditCardOutlined, PhoneOutlined, CrownOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import "./abonnement.scss";
 import { postPayment } from "../../services/payment.service";
 import { getSubscription } from "../../services/subscriptions.service";
@@ -24,14 +19,12 @@ import { getSubscription } from "../../services/subscriptions.service";
 const { Option } = Select;
 const { Title, Text } = Typography;
 
-const Abonnement = () => {
+const AbonnementPayEntry = ({ currentUser }) => {
   const [loading, setLoading] = useState(false);
   const [subscriptions, setSubscriptions] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
-    // Fetch des abonnements depuis le backend
     const fetchData = async () => {
       try {
         const { data } = await getSubscription();
@@ -46,85 +39,65 @@ const Abonnement = () => {
     fetchData();
   }, []);
 
-  // Compte à rebours
-  useEffect(() => {
-    if (timeLeft === null) return;
-    if (timeLeft <= 0) return setTimeLeft(null);
-
-    const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-    return () => clearTimeout(timer);
-  }, [timeLeft]);
-
   const handleSubscriptionChange = (id) => {
     const sub = subscriptions.find((s) => s.id_subscription === id);
     setSelected(sub || null);
-    setTimeLeft(600); // 10 minutes
   };
 
-  const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60)
-      .toString()
-      .padStart(2, "0");
-    const s = (seconds % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  };
+  const handleFinish = async (values) => {
+    if (!selected) return;
+    setLoading(true);
 
-const handleFinish = async (values) => {
-  if (!selected) return;
-  setLoading(true);
-
-  try {
-    const res = await postPayment({
-      userId: 1, // remplacer par l'utilisateur connecté
-      subscriptionId: values.subscription,
-      amount: selected.price,
-      phone: values.phone,
-      email: values.email || "test@test.com",
-    });
-
-    if (res.success) {
-      // Créer dynamiquement le formulaire POST pour MaxiCash
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = res.data.redirectUrl;
-
-      Object.entries(res.data.formData).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
+    try {
+      const res = await postPayment({
+        userId: currentUser?.id || 1, // Remplace par user connecté
+        subscriptionId: selected.id_subscription,
+        amount: selected.price,
+        phone: values.phone,
+        email: values.email || "test@test.com",
       });
 
-      document.body.appendChild(form);
-      form.submit();
-    } else {
+      if (res.success) {
+        // Créer dynamiquement le formulaire POST vers MaxiCash
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = res.data.redirectUrl;
+
+        Object.entries(res.data.formData).forEach(([key, value]) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = value;
+          form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+      } else {
+        notification.error({
+          message: "Erreur",
+          description: res.error || "Impossible d’initier le paiement",
+        });
+      }
+    } catch (err) {
+      console.error(err);
       notification.error({
-        message: "Erreur ❌",
-        description: res.error || "Impossible d’initier le paiement",
+        message: "Erreur",
+        description: "Une erreur inattendue est survenue",
       });
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-    notification.error({
-      message: "Erreur ❌",
-      description: "Une erreur inattendue est survenue",
-    });
-  } finally {
-    setLoading(false);
-  }
-};
-
-
+  };
 
   return (
     <div className="abonnement">
-      <Card className="abonnement-card" bordered={false}>
-        <div className="abonnement-header">
-          <CrownOutlined className="abonnement-icon" />
+      <Card bordered={false} className="abonnement-card">
+        <div className="abonnement-header" style={{ textAlign: "center" }}>
+          <CrownOutlined style={{ fontSize: 40, color: "#fa8c16" }} />
           <Title level={3}>Souscrire à un abonnement</Title>
           <Text type="secondary">
-            Choisissez une formule et payez en toute sécurité via MaxiCash.
+            Choisissez une formule et payez via MaxiCash (M-Pesa, Orange Money, etc.).
           </Text>
         </div>
 
@@ -149,7 +122,7 @@ const handleFinish = async (values) => {
             >
               {subscriptions.map((d) => (
                 <Option key={d.id_subscription} value={d.id_subscription}>
-                  {d.name} — {d.price} $
+                  {d.name} — {d.price} USD
                 </Option>
               ))}
             </Select>
@@ -178,6 +151,14 @@ const handleFinish = async (values) => {
             />
           </Form.Item>
 
+          {/* Email (optionnel) */}
+          <Form.Item
+            label="Email (optionnel)"
+            name="email"
+          >
+            <Input placeholder="email@example.com" size="large" />
+          </Form.Item>
+
           {/* Résumé abonnement */}
           {selected && (
             <Alert
@@ -195,30 +176,7 @@ const handleFinish = async (values) => {
             />
           )}
 
-          {/* Compte à rebours */}
-          <div className="countdown-wrapper">
-            <div className="countdown">
-                <ClockCircleOutlined style={{ marginRight: 8, color: "#fa8c16" }} />
-                <Text strong>
-                Temps restant pour finaliser : {formatTime(timeLeft)}
-                </Text>
-            </div>
-
-            {/* Barre de progression avec couleur dynamique */}
-            <div className="countdown-bar">
-                <div
-                className={`countdown-progress ${
-                    timeLeft > 300 ? "green" : timeLeft > 120 ? "orange" : "red"
-                }`}
-                style={{
-                    width: `${(timeLeft / 600) * 100}%`,
-                }}
-                />
-            </div>
-          </div>
-
-
-          <Form.Item style={{ marginTop: 20 }}>
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
@@ -236,4 +194,4 @@ const handleFinish = async (values) => {
   );
 };
 
-export default Abonnement;
+export default AbonnementPayEntry;

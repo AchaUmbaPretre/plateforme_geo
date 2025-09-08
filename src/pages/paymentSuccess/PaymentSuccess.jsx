@@ -44,13 +44,6 @@ const PaymentSuccess = () => {
 
           <div className="actions">
             <Button
-              type="primary"
-              size="large"
-              onClick={() => navigate("/dashboard")}
-            >
-              Aller au Tableau de Bord
-            </Button>
-            <Button
               type="default"
               size="large"
               onClick={() => navigate("/")}
