@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Close } from "@mui/icons-material";
 import { useAuth } from "../../context/AuthContext";
-import logo from './../../assets/logo.jpeg';
-import './navbar.scss';
+import logo from "../../assets/logo.jpeg";
+import "./navbar.scss";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -12,58 +12,63 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
 
-  const toggleMenu = () => setMenuOpen(prev => !prev);
-  const toggleDropdown = () => setDropdownOpen(prev => !prev);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  // Effet sticky
-  React.useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  // Add scroll shadow
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-wrapper">
-        <Link to="/"><img src={logo} alt="Logo" className="navbar-logo" /></Link>
+        
+        {/* Logo */}
+        <Link to="/" className="navbar-logo">
+          <img src={logo} alt="Logo" />
+        </Link>
 
-        <div className="navbar-right">
-          <button className="navbar-bar" onClick={toggleMenu}>
-            {menuOpen ? <Close /> : <Menu />}
-          </button>
+        {/* Hamburger */}
+        <button className="navbar-bar" onClick={toggleMenu}>
+          {menuOpen ? <Close /> : <Menu />}
+        </button>
 
-          <ul className={`navbar-ul ${menuOpen ? "navbarOpen" : ""}`}>
-            <li><Link to="/" className="navbar-link">Accueil</Link></li>
-            <li><a href="#apropos" className="navbar-link">Apropos</a></li>
-            <li><a href="#nosservices" className="navbar-link">Nos données</a></li>
-            {user?.role === 'admin' && <li><a href="https://dashboard.geoconsult-rdc.com" className="navbar-link">Dashboard</a></li>}
-            <li><a href="#contact" className="navbar-link">Contactez-nous</a></li>
-          </ul>
-        </div>
-        <div className="navbar_left">
+        {/* Main Menu */}
+        <ul className={`navbar-menu ${menuOpen ? "open" : ""}`}>
+          <li><Link to="/">Accueil</Link></li>
+          <li><a href="#apropos">Apropos</a></li>
+          <li><a href="#nosservices">Nos données</a></li>
+          {user?.role === "admin" && (
+            <li><a href="https://dashboard.geoconsult-rdc.com">Dashboard</a></li>
+          )}
+          <li><a href="#contact">Contactez-nous</a></li>
+        </ul>
+
+        {/* User (Avatar / Login Buttons) */}
+        <div className="navbar-user-container">
           {user ? (
-          <li className="navbar-user">
-            <div className="navbar-avatar" onClick={toggleDropdown}>
-              {`${user.nom?.[0] ?? ""}${user.prenom?.[0] ?? ""}`.toUpperCase()}
+            <div className="navbar-user">
+              <div className="navbar-avatar" onClick={toggleDropdown}>
+                {`${user.nom?.[0] ?? ""}${user.prenom?.[0] ?? ""}`.toUpperCase()}
+              </div>
+
+              <div className={`user-dropdown ${dropdownOpen ? "open" : ""}`}>
+                <div onClick={() => navigate("/profile")}>Profil</div>
+                <div className="logout" onClick={handleLogout}>Déconnecter</div>
+              </div>
             </div>
-            <div className={`user-dropdown ${dropdownOpen ? "open" : ""}`}>
-              <div className="dropdown-item" onClick={() => navigate("/profile")}>Profil</div>
-              <div className="dropdown-item logout-btn" onClick={handleLogout}>Déconnecter</div>
-            </div>
-          </li>
           ) : (
-            <div className="navbar_user_left">
-              <li style={{listStyle:'none'}}>
-                <Link to="/register" className="login-btn">Inscription</Link>
-              </li>
-              <li style={{listStyle:'none'}}>
-                <Link to="/login" className="login-btn">Connexion</Link>
-              </li>
+            <div className="navbar-auth">
+              <Link to="/register" className="btn-outline">Inscription</Link>
+              <Link to="/login" className="btn-primary">Connexion</Link>
             </div>
           )}
         </div>

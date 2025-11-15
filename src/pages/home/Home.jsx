@@ -71,7 +71,6 @@ const Home = () => {
 
       <About/>
 
-      {/* SECTION DONNÉES */}
       <Services/>
 
       <Contact/>

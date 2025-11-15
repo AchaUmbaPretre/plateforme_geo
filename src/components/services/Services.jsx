@@ -58,7 +58,6 @@ const dataItems = [
     desc: 'Données sur les rivières, lacs et nappes, utiles pour la gestion des ressources en eau.',
        url: `/donnees_type?id_type=${3}`
 
-
   },
   { 
     id:4,
