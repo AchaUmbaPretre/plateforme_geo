@@ -39,26 +39,33 @@ const Navbar = () => {
 
           <ul className={`navbar-ul ${menuOpen ? "navbarOpen" : ""}`}>
             <li><Link to="/" className="navbar-link">Accueil</Link></li>
+            <li><a href="#apropos" className="navbar-link">Apropos</a></li>
             <li><a href="#nosservices" className="navbar-link">Nos données</a></li>
             {user?.role === 'admin' && <li><a href="https://dashboard.geoconsult-rdc.com" className="navbar-link">Dashboard</a></li>}
             <li><a href="#contact" className="navbar-link">Contactez-nous</a></li>
-
-            {user ? (
-              <li className="navbar-user">
-                <div className="navbar-avatar" onClick={toggleDropdown}>
-                  {`${user.nom?.[0] ?? ""}${user.prenom?.[0] ?? ""}`.toUpperCase()}
-                </div>
-                <div className={`user-dropdown ${dropdownOpen ? "open" : ""}`}>
-                  <div className="dropdown-item" onClick={() => navigate("/profile")}>Profil</div>
-                  <div className="dropdown-item logout-btn" onClick={handleLogout}>Déconnecter</div>
-                </div>
-              </li>
-            ) : (
-              <li>
-                <Link to="/login" className="login-btn">Se connecter</Link>
-              </li>
-            )}
           </ul>
+        </div>
+        <div className="navbar_left">
+          {user ? (
+          <li className="navbar-user">
+            <div className="navbar-avatar" onClick={toggleDropdown}>
+              {`${user.nom?.[0] ?? ""}${user.prenom?.[0] ?? ""}`.toUpperCase()}
+            </div>
+            <div className={`user-dropdown ${dropdownOpen ? "open" : ""}`}>
+              <div className="dropdown-item" onClick={() => navigate("/profile")}>Profil</div>
+              <div className="dropdown-item logout-btn" onClick={handleLogout}>Déconnecter</div>
+            </div>
+          </li>
+          ) : (
+            <div className="navbar_user_left">
+              <li style={{listStyle:'none'}}>
+                <Link to="/register" className="login-btn">Inscription</Link>
+              </li>
+              <li style={{listStyle:'none'}}>
+                <Link to="/login" className="login-btn">Connexion</Link>
+              </li>
+            </div>
+          )}
         </div>
       </div>
     </nav>

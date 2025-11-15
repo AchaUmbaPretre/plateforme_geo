@@ -1,7 +1,7 @@
 @import '../../style.scss';
 
 $primary-blue: #1f1fe4;
-$gold-accent: #ffd700;
+$gold-accent: #1f1fe4;;
 $dark-blue: #151541;
 $avatar-size: 38px;
 
@@ -52,9 +52,7 @@ $avatar-size: 38px;
       display: flex;
       align-items: center;
       gap: 20px;
-    }
-
-    .navbar-ul {
+          .navbar-ul {
       display: flex;
       align-items: center;
       gap: 28px;
@@ -91,23 +89,26 @@ $avatar-size: 38px;
           width: 100%;
         }
       }
+    }
 
-      .login-btn {
-        padding: 6px 16px;
-        background-color: $primary-blue;
-        color: #fff;
-        border-radius: 5px;
-        font-weight: 700;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
+    .navbar-bar {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
 
-        &:hover {
-          background-color: darken($primary-blue, 10%);
-          transform: translateY(-2px);
-        }
+      svg {
+        font-size: 28px;
+        color: $primary-blue;
+        transition: transform 0.3s ease;
       }
+    }
+    }
 
-      .navbar-user {
+    .navbar_left{
+        .navbar-user {
         display: flex;
         align-items: center;
         position: relative;
@@ -167,22 +168,25 @@ $avatar-size: 38px;
           }
         }
       }
-    }
 
-    .navbar-bar {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      z-index: 1001;
+      .navbar_user_left {
+        .login-btn {
+          padding: 6px 16px;
+          background-color: $primary-blue;
+          color: #fff;
+          border-radius: 5px;
+          font-weight: 700;
+          text-transform: uppercase;
+          transition: all 0.3s ease;
 
-      svg {
-        font-size: 28px;
-        color: $primary-blue;
-        transition: transform 0.3s ease;
+          &:hover {
+            background-color: darken($primary-blue, 10%);
+            transform: translateY(-2px);
+          }
+        }
       }
     }
+
 
     @include tablette {
       .navbar-bar { display: block; }

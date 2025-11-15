@@ -28,6 +28,7 @@ const About = () => {
       ref={ref}
       initial="hidden"
       animate={controls}
+      id='apropos'
     >
       <div className="about_title_row">
         <motion.h2
