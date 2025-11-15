@@ -6,7 +6,6 @@ import Contact from '../../components/contact/Contact';
 import Services from '../../components/services/Services';
 import { useNavigate } from 'react-router-dom';
 
-
 const Home = () => {
   const navigate = useNavigate();
 
@@ -14,6 +13,14 @@ const Home = () => {
     <div className="home">
       <div className="home_container">
         <div className="home__wrapper">
+
+          {/* PLUIE DE CERCLES derrière LEFT */}
+          <div className="rain-bg">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <div key={i} className={`drop drop${i+1}`}></div>
+            ))}
+          </div>
+
           {/* LEFT */}
           <motion.div
             className="home__left"
@@ -50,7 +57,7 @@ const Home = () => {
             </motion.button>
           </motion.div>
 
-          {/* RIGHT IMAGE */}
+          {/* RIGHT */}
           <motion.div
             className="home__right"
             initial={{ opacity: 0, x: 60 }}
@@ -69,11 +76,9 @@ const Home = () => {
         </div>
       </div>
 
-      <About/>
-
-      <Services/>
-
-      <Contact/>
+      <About />
+      <Services />
+      <Contact />
     </div>
   );
 };

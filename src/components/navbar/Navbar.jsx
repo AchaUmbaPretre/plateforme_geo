@@ -123,7 +123,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="navbar-auth">
-              <button className="btn-auth" onClick={() => navigate('/auth')}>
+              <button className="btn-auth" onClick={() => navigate('/login')}>
                 <UserAddOutlined style={{ marginRight: 8, fontSize: 16 }} />
                 Inscription / Connexion
               </button>

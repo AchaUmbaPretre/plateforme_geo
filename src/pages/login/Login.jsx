@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import './login.scss';
 import { loginUser, registerUser } from '../../services/auth.service';
 import { useAuth } from '../../context/AuthContext';
+import { UserOutlined, MailOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons';
+import logo from "./../../assets/logo.jpeg";
 
 const Login = () => {
   const { login } = useAuth();
@@ -13,7 +15,6 @@ const Login = () => {
   const [formData, setFormData] = useState({ nom: '', email: '', phone: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
   const firstInputRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +35,6 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const payload = isLogin
         ? { email: formData.email, password: formData.password }
@@ -70,6 +70,12 @@ const Login = () => {
     <div className="auth-page">
       <div className={`form-container ${isLogin ? 'login-mode' : 'register-mode'}`}>
         <form className="auth-form" onSubmit={handleSubmit}>
+          
+          {/* Logo en haut du formulaire */}
+          <div className="logo-container">
+            <img src={logo} alt="Logo" />
+          </div>
+
           <h1>{isLogin ? 'Connexion' : 'Inscription'}</h1>
 
           {error && <div className="form-error">{error}</div>}
@@ -77,51 +83,67 @@ const Login = () => {
           {!isLogin && (
             <div className="form-group">
               <label>Nom</label>
-              <input
-                ref={firstInputRef}
-                type="text"
-                name="nom"
-                value={formData.nom}
-                onChange={handleChange}
-                required
-              />
+              <div className="input-wrapper">
+                <UserOutlined className="icon" />
+                <input
+                  ref={firstInputRef}
+                  type="text"
+                  name="nom"
+                  value={formData.nom}
+                  onChange={handleChange}
+                  placeholder="Votre nom"
+                  required
+                />
+              </div>
             </div>
           )}
 
           <div className="form-group">
             <label>Email</label>
-            <input
-              ref={isLogin ? firstInputRef : null}
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+            <div className="input-wrapper">
+              <MailOutlined className="icon" />
+              <input
+                ref={isLogin ? firstInputRef : null}
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Votre email"
+                required
+              />
+            </div>
           </div>
 
           {!isLogin && (
             <div className="form-group">
               <label>Téléphone</label>
-              <input
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
+              <div className="input-wrapper">
+                <PhoneOutlined className="icon" />
+                <input
+                  type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Votre téléphone"
+                  required
+                />
+              </div>
             </div>
           )}
 
           <div className="form-group">
             <label>Mot de passe</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <div className="input-wrapper">
+              <LockOutlined className="icon" />
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Mot de passe"
+                required
+              />
+            </div>
           </div>
 
           <button type="submit" disabled={loading} className="login-btn">
